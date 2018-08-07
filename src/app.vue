@@ -17,7 +17,7 @@
         beforeDestroy () {
 
         },
-        methods: {
+        methods() {
 
         },
         created () {

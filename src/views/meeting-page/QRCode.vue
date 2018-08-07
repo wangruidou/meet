@@ -64,16 +64,30 @@ export default {
                             duration: 3,
                             width: 200
                         });
-                        this_.$Message.info('二维码创建成功！！');
+                        this_.$Message.info('二维码创建成功');
                     } else {
-                        this_.$Message.info('二维码创建失败！！');
+                        this_.$Message.info('二维码创建失败');
                     }
                 });
         },
         search (row) {
-            let src = this.url + '/meet/qrcode/getPhoto?photo_name=' + row._index;
-            document.getElementById('img').src = src;
-            this.img = true;
+            let this_ = this;
+            this.$ajax.post('qrcode/getData',
+                'photo_name=' + row._index)
+                .then(function (response) {
+                    if (response.data.errorCode === 0) {
+                        this_.$Message.config({
+                            top: 50,
+                            duration: 3,
+                            width: 200
+                        });
+                        let src = this_.url + '/meet/qrcodeimage/' + row._index + '.png';
+                        document.getElementById('img').src = src;
+                        this_.img = true;
+                    } else {
+                        this_.$Message.info('请先创建二维码');
+                    }
+                });
         }
     },
     computed: {

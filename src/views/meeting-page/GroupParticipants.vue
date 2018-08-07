@@ -189,7 +189,7 @@ export default {
                         this_.formItem.type = '2';
                         this.$ajax.post('group/edit',
                             'group_name=' + this_.formItem.group_name + '&persons=' + this_.targetEle +
-                            '&status=' + '1' + '&id=' + this_.INDEX)
+                            '&status=' + '1' + '&meetid=' + this_.$route.query.sceneid + '&id=' + this_.INDEX)
                             .then(function (response) {
                                 if (response.data.errorCode === 0) {
                                     this_.$Message.config({

@@ -134,7 +134,11 @@ export default {
     },
     methods: {
         rander_guest (item) {
-            return item.name;
+            if (item.name !== '' && item.name !== undefined) {
+                return item.name;
+            } else {
+                return item.nickname;
+            }
         },
         edit (row) {
             this.INDEX = row.id;
@@ -250,7 +254,11 @@ export default {
             this.targetKeys2 = newTargetKeys;
         },
         filterMethod (data, query) {
-            return data.name.indexOf(query) > -1;
+            if (data.name !== '' && data.name !== undefined) {
+                return data.name.indexOf(query) > -1;
+            } else {
+                return data.nickname.indexOf(query) > -1;
+            }
         },
         delete (id) {
             let this_ = this;

@@ -10,11 +10,11 @@ import VueI18n from 'vue-i18n';
 import util from './libs/util';
 import Axios from 'axios';
 
-Axios.defaults.baseURL = 'http://127.0.0.1/meet/';
+Axios.defaults.baseURL = 'http://47.92.2.135/meet/';
 
 Vue.prototype.$ajax = Axios;
 
-Vue.prototype.url = 'http://127.0.0.1';
+Vue.prototype.url = 'http://47.92.2.135';
 
 Vue.use(VueI18n);
 Vue.use(iView);
@@ -36,7 +36,7 @@ new Vue({
         // 权限菜单过滤相关
         this.$store.commit('updateMenulist');
         // iview-admin检查更新
-        util.checkUpdate(this);
+        // util.checkUpdate(this);
     },
     created () {
         let tagsList = [];

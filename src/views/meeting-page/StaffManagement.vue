@@ -214,6 +214,13 @@ export default {
                 return persons.slice((this.pageNumber - 1) * this.pageSize, this.pageNumber * this.pageSize);
             }
         }
+    },
+    created() {
+        var _this = this;
+        this.$ajax.post('meetingcolumns/list')
+            .then(function (response) {
+                _this.$store.commit('meetingpersonlist', response.data.meetingpersonlist);
+            });
     }
 };
 </script>

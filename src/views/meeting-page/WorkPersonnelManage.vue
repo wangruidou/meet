@@ -29,7 +29,6 @@
     </Modal>
    
    <Modal v-model="detail" title="人员详细信息" width="60%" height="50%">
-       <table width="96%">
         <Form ref="personValidate1" :model="personValidate" :label-width="110">
             <tr>
                 <td>
@@ -244,7 +243,6 @@
                 <Button type="ghost" @click="resetPerson('personValidate1')" style="margin-left: 8px">重置</Button>
             </FormItem>
         </Form>
-        </table>
         <div slot="footer"></div>
     </Modal>
   </div>
@@ -903,11 +901,21 @@ export default {
                 return persons.slice((this.pageNumber - 1) * this.pageSize, this.pageNumber * this.pageSize);
             }
         }
+    },
+    created() {
+        var _this = this;
+        this.$ajax.post('meetingcolumns/list')
+            .then(function (response) {
+                _this.$store.commit('guestpersonlist', response.data.guestpersonlist);
+            });
     }
 };
 </script>
 
 <style lang="less">
+  body .ivu-modal .ivu-select-dropdown{
+    position: fixed !important;
+  }
   .paging{
       float: right;
       margin-bottom: 10px;

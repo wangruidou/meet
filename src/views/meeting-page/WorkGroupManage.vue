@@ -144,7 +144,11 @@ export default {
     },
     methods: {
         rander_outside (item) {
-            return item.name;
+            if (item.name !== '' && item.name !== undefined) {
+                return item.name;
+            } else {
+                return item.nickname;
+            }
         },
         edit (row) {
             this.INDEX = row.id;
@@ -185,7 +189,7 @@ export default {
                         this_.formItem.type = '2';
                         this.$ajax.post('group/edit',
                             'group_name=' + this_.formItem.group_name + '&persons=' + this_.targetEle +
-                            '&status=' + '3' + '&id=' + this_.INDEX)
+                            '&status=' + '3' + '&meetid=' + this_.$route.query.sceneid + '&id=' + this_.INDEX)
                             .then(function (response) {
                                 if (response.data.errorCode === 0) {
                                     this_.$Message.config({
@@ -260,7 +264,11 @@ export default {
             this.targetKeys2 = newTargetKeys;
         },
         filterMethod (data, query) {
-            return data.name.indexOf(query) > -1;
+            if (data.name !== '' && data.name !== undefined) {
+                return data.name.indexOf(query) > -1;
+            } else {
+                return data.nickname.indexOf(query) > -1;
+            }
         },
         delete (id) {
             let this_ = this;

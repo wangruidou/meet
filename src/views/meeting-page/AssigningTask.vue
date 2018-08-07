@@ -21,9 +21,9 @@
             <FormItem label="工作时间" prop="workingtime">
                 <DatePicker type="datetime" format="yyyy-MM-dd HH:mm" placeholder="请选择时间..." @on-change="formatDate" v-model="formItem.workingtime"></DatePicker>
             </FormItem>
-            <FormItem label="工作进度" prop="jobschedule">
+            <!-- <FormItem label="工作进度" prop="jobschedule">
                 <Input v-model="formItem.jobschedule" placeholder="请输入..." clearable></Input>
-            </FormItem>
+            </FormItem> -->
             <FormItem label="主负责人" prop="principal">
                 <Input v-model="formItem.principal" placeholder="请输入..." clearable></Input>
             </FormItem>
@@ -56,11 +56,11 @@ export default {
             dispatchtask_col: [
                 {type: 'selection', width: 60, align: 'center'},
                 {title: '序号', type: 'index', width: 60, align: 'center'}, // 单选
-                {title: '任务名称', key: 'taskname', width: 150, align: 'center'},
-                {title: '工作时间', key: 'workingtime', width: 150, align: 'center'},
-                {title: '工作进度', key: 'jobschedule', width: 150, align: 'center'},
-                {title: '主负责人', key: 'principal', width: 160, align: 'center'},
-                {title: '组名', key: 'groupname', width: 160, align: 'center'},
+                {title: '任务名称', key: 'taskname', width: 180, align: 'center'},
+                {title: '工作时间', key: 'workingtime', width: 180, align: 'center'},
+                // {title: '工作进度', key: 'jobschedule', width: 150, align: 'center'},
+                {title: '主负责人', key: 'principal', width: 180, align: 'center'},
+                {title: '组名', key: 'groupname', width: 180, align: 'center'},
                 {title: '操作',
                     key: 'action',
                     align: 'center',
@@ -136,9 +136,9 @@ export default {
                 taskname: [
                     { required: true, message: '任务名称不能为空', trigger: 'blur' }
                 ],
-                jobschedule: [
-                    { required: true, message: '工作进度不能为空', trigger: 'blur' }
-                ],
+                // jobschedule: [
+                //     { required: true, message: '工作进度不能为空', trigger: 'blur' }
+                // ],
                 principal: [
                     { required: true, message: '主负责人不能为空', trigger: 'blur' }
                 ]
@@ -188,8 +188,9 @@ export default {
                 if (valid) {
                     if (this.INDEX !== -1) {
                         let _index = this_.INDEX;
+                        let time = '';
                         if (this_.NEW_DATE !== '') {
-                            this_.formItem.workingtime = this_.NEW_DATE;
+                            time = this_.NEW_DATE;
                         } else {
                             if (this_.formItem.workingtime !== '') {
                                 let d = new Date(this_.formItem.workingtime);
@@ -199,7 +200,7 @@ export default {
                                         a[i] = '0' + a[i];
                                     }
                                 }
-                                this_.formItem.workingtime = a[0] + '-' + a[1] + '-' + a[2] + ' ' + a[3] + ':' + a[4];
+                                time = a[0] + '-' + a[1] + '-' + a[2] + ' ' + a[3] + ':' + a[4];
                             }
                         }
                         this_.formItem.id = _index;
@@ -207,10 +208,11 @@ export default {
                         this_.formItem.groupname = this_.targetEleName;
                         this_.formItem.type = '2';
                         this.$ajax.post('dispatchtask/edit',
-                            'taskname=' + this_.formItem.taskname + '&workingtime=' + this_.formItem.workingtime +
+                            'taskname=' + this_.formItem.taskname + '&workingtime=' + time +
                             '&jobschedule=' + this_.formItem.jobschedule + '&principal=' + this_.formItem.principal +
                             '&groups=' + this_.targetEle + '&id=' + _index)
                             .then(function (response) {
+                                this_.formItem.workingtime = time;
                                 if (response.data.errorCode === 0) {
                                     this_.$Message.config({
                                         top: 50,

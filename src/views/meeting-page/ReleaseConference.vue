@@ -163,7 +163,11 @@ export default {
             return item.group_name;
         },
         rander_guestperson (item) {
-            return item.name;
+            if (item.name !== '' && item.name !== undefined) {
+                return item.name;
+            } else {
+                return item.nickname;
+            }
         },
         New () {
             let this_ = this;
@@ -413,7 +417,11 @@ export default {
             return data.group_name.indexOf(query) > -1;
         },
         filterMethodp (data, query) {
-            return data.name.indexOf(query) > -1;
+            if (data.name !== '' && data.name !== undefined) {
+                return data.name.indexOf(query) > -1;
+            } else {
+                return data.nickname.indexOf(query) > -1;
+            }
         },
         handleChangeg (newTargetKeys) {
             let targetEleg = '';

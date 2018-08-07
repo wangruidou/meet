@@ -54,6 +54,8 @@ const meet = {
         guestpersonlist (state, data) {
             if (data) {
                 if (data.length > 0) {
+                    state.grestpersonColumnsData.length = 0;
+                    state.outsidegrouppersonColumnsData.length = 0;
                     for (let i = 0; i < data.length; i++) {
                         if (data[i].persontype === '1') {
                             if (data[i].type === '' || data[i].type === undefined) {
@@ -366,6 +368,7 @@ const meet = {
         meetingpersonlist (state, data) {
             if (data) {
                 if (data.length > 0) {
+                    state.meetingpersonData.length = 0;
                     state.meetingpersonData = data;
                 } else {
                     for (let i = 0; i < state.meetingpersonData.length; i++) {
