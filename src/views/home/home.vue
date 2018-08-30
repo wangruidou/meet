@@ -150,9 +150,14 @@ export default {
                                     }, '推送信息'),
                                     h('DropdownItem', {
                                         props: {
+                                            name: 'pushhistory'
+                                        }
+                                    }, '推送消息历史'),
+                                    h('DropdownItem', {
+                                        props: {
                                             name: 'qrCode'
                                         }
-                                    }, '查看二维码')
+                                    }, '查看签到二维码')
                                 ])
                             ])
                         ]);
@@ -218,7 +223,7 @@ export default {
             let id = param.id;
             let sceneid = param.sceneid + '';// 二维码
             let meeting = param.meet_name;
-            let query = {dispatchtask_id: id, meeting: meeting, sceneid: sceneid};
+            let query = {meeting: meeting, sceneid: sceneid, param: param};
             if (type === 'assigningtask') { // 分派任务
                 this.$router.push({
                     name: 'assigningtask',
@@ -229,27 +234,32 @@ export default {
                     name: 'releaseconference',
                     query: query
                 });
-            } else if (type === 'pushinformation') { // 推送邀请
+            } else if (type === 'pushinformation') { // 推送信息
                 this.$router.push({
                     name: 'pushinformation',
                     query: query
                 });
-            } else if (type === 'groupparticipants') { // 参数人员分组
+            } else if (type === 'groupparticipants') { // 参会人员分组
                 this.$router.push({
                     name: 'groupparticipants',
                     query: query
                 });
-            } else if (type === 'staffmanagement') { // 参数人员管理
+            } else if (type === 'staffmanagement') { // 参会人员管理
                 this.$router.push({
                     name: 'staffmanagement',
                     query: query
                 });
-            } else if (type === 'workgroupmanage') { // 参数工作人员分组
+            } else if (type === 'workgroupmanage') { // 参会工作人员分组
                 this.$router.push({
                     name: 'workgroupmanage',
                     query: query
                 });
-            } else if (type === 'qrCode') { // 查看二维码
+            } else if (type === 'pushhistory') { // 会议推送信消息历史记录
+                this.$router.push({
+                    name: 'pushhistory',
+                    query: query
+                });
+            } else if (type === 'qrCode') { // 查看签到二维码
                 let src = this.url + '/meet/qrcode/getPhoto?photo_name=' + id;
                 document.getElementById('img').src = src;
                 this.img = true;

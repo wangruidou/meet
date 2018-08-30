@@ -267,7 +267,7 @@ export default {
                 {title: '单位', key: 'unit', width: 180, align: 'center'},
                 {title: '职务', key: 'position', width: 160, align: 'center'},
                 {title: '手机号', key: 'phone', width: 140, align: 'center'},
-                { title: '操作',
+                {title: '操作',
                     key: 'action',
                     align: 'center',
                     render: (h, params) => {
@@ -307,6 +307,7 @@ export default {
             detail: false,
             person_modal: false,
             personValidate: {
+                id: '',
                 name: '',
                 phone: '',
                 unit: '',
@@ -361,10 +362,10 @@ export default {
             },
             personRuleValidate: {
                 name: [
-                    { required: true, message: '名字不能为空', trigger: 'blur' }
+                    {required: true, message: '名字不能为空', trigger: 'blur'}
                 ],
                 phone: [
-                    { required: true, message: '手机号不能为空', trigger: 'blur' },
+                    {required: true, message: '手机号不能为空', trigger: 'blur'},
                     {type: 'string', pattern: /^1[3|4|5|8][0-9]\d{4,8}$/, message: '请输入正确的手机号码', trigger: 'blur'}
                 ]
             },
@@ -440,7 +441,6 @@ export default {
                     if (this_.person_index !== -1) {
                         this_.personValidate.id = this_.person_index;
                         this_.personValidate.type = '2';
-                        this_.personValidate.persontype = '2';
                         this_.personValidate.meetid = '';
                         if (this_.personValidate.unit === null || this_.personValidate.unit === undefined) {
                             this_.personValidate.unit = '';
@@ -448,7 +448,7 @@ export default {
                         if (this_.personValidate.position === null || this_.personValidate.position === undefined) {
                             this_.personValidate.position = '';
                         }
-                        this.$ajax.post('guestperson/edit',
+                        this.$ajax.post('basicperson/edit',
                             'name=' + this_.personValidate.name + '&phone=' + this_.personValidate.phone +
                             '&unit=' + this_.personValidate.unit + '&position=' + this_.personValidate.position +
                             '&id=' + this_.person_index)
@@ -460,16 +460,15 @@ export default {
                                         width: 200
                                     });
                                     this_.$Message.info('修改成功');
-                                    this_.$store.commit('guestpersonlist', this_.personValidate);
+                                    this_.$store.commit('basicpersonlist', this_.personValidate);
                                 } else {
                                     this_.$Message.info('修改失败');
                                 }
                             });
                     } else { // 新增
-                        this.$ajax.post('guestperson/add',
+                        this.$ajax.post('basicperson/add',
                             'name=' + this_.personValidate.name + '&phone=' + this_.personValidate.phone +
-                            '&unit=' + this_.personValidate.unit + '&position=' + this_.personValidate.position +
-                            '&persontype=' + '2')
+                            '&unit=' + this_.personValidate.unit + '&position=' + this_.personValidate.position)
                             .then(function (response) {
                                 this_.AddpersonValidate.id = response.data.id;
                                 this_.AddpersonValidate.name = this_.personValidate.name;
@@ -477,7 +476,6 @@ export default {
                                 this_.AddpersonValidate.phone = this_.personValidate.phone;
                                 this_.AddpersonValidate.position = this_.personValidate.position;
                                 this_.AddpersonValidate.type = '1';
-                                this_.AddpersonValidate.persontype = '2';
                                 this_.AddpersonValidate.meetid = '';
                                 if (response.data.errorCode === 0) {
                                     this_.$Message.config({
@@ -486,7 +484,7 @@ export default {
                                         width: 200
                                     });
                                     this_.$Message.info('添加成功');
-                                    this_.$store.commit('guestpersonlist', this_.AddpersonValidate);
+                                    this_.$store.commit('basicpersonlist', this_.AddpersonValidate);
                                 } else {
                                     this_.$Message.info('添加失败');
                                 }
@@ -777,9 +775,9 @@ export default {
                 this_.personValidate.magazine = this_.magazine + '';
                 this_.personValidate.distributionmode = this_.distributionmode + '';
                 this_.personValidate.salesman = this_.salesman + '';
-                this_.personValidate.persontype = '2';
+                this_.personValidate.persontype = '';
                 this_.personValidate.meetid = '';
-                this.$ajax.post('guestperson/editmx',
+                this.$ajax.post('basicperson/editmx',
                     'telephone=' + this_.personValidate.telephone + '&fax=' + this_.personValidate.fax +
                     '&email=' + this_.personValidate.email + '&location=' + this_.personValidate.location +
                     '&postcode=' + this_.personValidate.postcode + '&seminar=' + this_.seminar + '' +
@@ -797,7 +795,7 @@ export default {
                     '&remarks=' + this_.personValidate.remarks + '' + '&salesman=' + this_.salesman + '' +
                     '&copies=' + this_.personValidate.copies + '' + '&latestcontact=' + this_.personValidate.latestcontact +
                     '&updatedate=' + this_.personValidate.updatedate + '' + '&verificationproblem=' + this_.personValidate.verificationproblem +
-                    '&id=' + this_.person_index + '&persontype=' + this_.personValidate.persontype)
+                    '&id=' + this_.person_index)
                     .then(function (response) {
                         if (response.data.errorCode === 0) {
                             this_.$Message.config({
@@ -806,12 +804,12 @@ export default {
                                 width: 200
                             });
                             this_.$Message.info('修改成功');
-                            this_.$store.commit('guestpersonlist', this_.personValidate);
+                            this_.$store.commit('basicpersonlist', this_.personValidate);
                         } else {
                             this_.$Message.info('修改失败');
                         }
                     });
-                this.detail = false;
+                this_.detail = false;
             });
         },
         changeyear (value) {
@@ -851,9 +849,9 @@ export default {
             let this_ = this;
             this_.personValidate.id = id;
             this_.personValidate.type = '3';
-            this_.personValidate.persontype = '2';
+            this_.personValidate.persontype = '1';
             this_.personValidate.meetid = '';
-            this.$ajax.post('guestperson/delete',
+            this.$ajax.post('basicperson/delete',
                 'id=' + id)
                 .then(function (response) {
                     if (response.data.errorCode === 0) {
@@ -863,7 +861,7 @@ export default {
                             width: 200
                         });
                         this_.$Message.info('删除成功');
-                        this_.$store.commit('guestpersonlist', this_.personValidate);
+                        this_.$store.commit('basicpersonlist', this_.personValidate);
                     } else {
                         this_.$Message.info('删除失败');
                     }
@@ -871,14 +869,14 @@ export default {
         }
     },
     computed: {
-        outsidegrouppersonlistPath: function () {
-            return this.$store.getters.outsidegrouppersonlistPath;
+        basicpersonlistPath: function () {
+            return this.$store.getters.basicpersonlistPath;
         },
         personcontent: function () {
             return this.$store.getters.personcontentPath;
         },
         pageTotal: function () {
-            let person = this.outsidegrouppersonlistPath;
+            let person = this.basicpersonlistPath;
             let persons = [];
             for (let i = 0; i < person.length; i++) {
                 if (person[i].nickname.indexOf(this.value) !== -1) {
@@ -890,7 +888,7 @@ export default {
             }
         },
         person_data: function () {
-            let person = this.outsidegrouppersonlistPath;
+            let person = this.basicpersonlistPath;
             let persons = [];
             for (let i = 0; i < person.length; i++) {
                 if (person[i].nickname.indexOf(this.value) !== -1) {
@@ -906,7 +904,7 @@ export default {
         var _this = this;
         this.$ajax.post('meetingcolumns/list')
             .then(function (response) {
-                _this.$store.commit('guestpersonlist', response.data.guestpersonlist);
+                _this.$store.commit('basicpersonlist', response.data.basicpersonlist);
             });
     }
 };

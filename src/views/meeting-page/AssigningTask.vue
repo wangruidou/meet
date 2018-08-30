@@ -229,14 +229,14 @@ export default {
                         this.$ajax.post('dispatchtask/add',
                             'taskname=' + this_.formItem.taskname + '&workingtime=' + this_.NEW_DATE +
                             '&jobschedule=' + this_.formItem.jobschedule + '&principal=' + this_.formItem.principal +
-                            '&groups=' + this_.targetEle + '&meettask=' + this_.$route.query.dispatchtask_id)
+                            '&groups=' + this_.targetEle + '&meettask=' + this_.$route.query.sceneid)
                             .then(function (response) {
                                 this_.addDispatchTask.id = response.data.id;
                                 this_.addDispatchTask.taskname = this_.formItem.taskname;
                                 this_.addDispatchTask.workingtime = this_.NEW_DATE;
                                 this_.addDispatchTask.jobschedule = this_.formItem.jobschedule;
                                 this_.addDispatchTask.principal = this_.formItem.principal;
-                                this_.addDispatchTask.meettask = this_.$route.query.dispatchtask_id;
+                                this_.addDispatchTask.meettask = this_.$route.query.sceneid;
                                 this_.addDispatchTask.groups = this_.targetEle;
                                 this_.addDispatchTask.groupname = this_.targetEleName;
                                 this_.addDispatchTask.type = '1';
@@ -307,7 +307,7 @@ export default {
             }
             let this_ = this;
             this.$ajax.post('sendinfo/assigningTask',
-                'selection=' + JSON.stringify(this_.selection))
+                'selection=' + JSON.stringify(this_.selection) + '&meetid=' + this_.$route.query.sceneid)
                 .then(function (response) {
                     if (response.data.errorCode === 0) {
                         this_.$Message.config({
@@ -364,7 +364,7 @@ export default {
             let b = '';
             let hh = [];
             for (let i = 0; i < dispatchtask.length; i++) {
-                if (dispatchtask[i].meettask === this.$route.query.dispatchtask_id) {
+                if (dispatchtask[i].meettask === this.$route.query.sceneid) {
                     if (dispatchtask[i].groups !== '') {
                         let groupid = dispatchtask[i].groups.split(',');
                         for (let j = 0; j < groupid.length; j++) {

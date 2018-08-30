@@ -55,25 +55,47 @@ export default {
     methods: {
         create (row) {
             let this_ = this;
-            this.$ajax.post('qrcode/add',
-                'photo_name=' + row._index)
+            let index = row._index;
+            if (index === 1) {
+                index = 100000;
+            }
+            this.$ajax.post('qrcode/getData',
+                'photo_name=' + index)
                 .then(function (response) {
                     if (response.data.errorCode === 0) {
                         this_.$Message.config({
                             top: 50,
                             duration: 3,
-                            width: 200
+                            widsth: 200
                         });
-                        this_.$Message.info('二维码创建成功');
+                        this_.$Message.info('您已创建过二维码');
                     } else {
-                        this_.$Message.info('二维码创建失败');
+                        this_.$ajax.post('qrcode/add',
+                        'photo_name=' + index)
+                        .then(function (response) {
+                            if (response.data.errorCode === 0) {
+                                this_.$Message.config({
+                                    top: 50,
+                                    duration: 3,
+                                    width: 200
+                                });
+                                this_.$Message.info('二维码创建成功');
+                            } else {
+                                this_.$Message.info('二维码创建失败');
+                            }
+                        }); 
                     }
                 });
+            
         },
         search (row) {
             let this_ = this;
+            let index = row._index;
+            if (index === 1) {
+                index = 100000;
+            }
             this.$ajax.post('qrcode/getData',
-                'photo_name=' + row._index)
+                'photo_name=' + index)
                 .then(function (response) {
                     if (response.data.errorCode === 0) {
                         this_.$Message.config({
@@ -81,7 +103,7 @@ export default {
                             duration: 3,
                             width: 200
                         });
-                        let src = this_.url + '/meet/qrcodeimage/' + row._index + '.png';
+                        let src = this_.url + '/meet/qrcodeimage/' + index + '.png';
                         document.getElementById('img').src = src;
                         this_.img = true;
                     } else {

@@ -289,7 +289,7 @@ export default {
                     if (this.INDEX !== -1) {
                         let _index = this_.INDEX;
                         this_.formItem.id = _index;
-                        this_.formItem.meetid = this_.$route.query.dispatchtask_id;
+                        this_.formItem.meetid = this_.$route.query.sceneid;
                         this_.formItem.type = '2';
                         this.$ajax.post('pushinformation/edit',
                             'pushname=' + this_.formItem.pushname + '&id=' + _index)
@@ -308,11 +308,11 @@ export default {
                             });
                     } else {
                         this.$ajax.post('pushinformation/add',
-                            'pushname=' + this_.formItem.pushname + '&meetid=' + this_.$route.query.dispatchtask_id)
+                            'pushname=' + this_.formItem.pushname + '&meetid=' + this_.$route.query.sceneid)
                             .then(function (response) {
                                 this_.addPush.id = response.data.id;
                                 this_.addPush.pushname = this_.formItem.pushname;
-                                this_.addPush.meetid = this_.$route.query.dispatchtask_id;
+                                this_.addPush.meetid = this_.$route.query.sceneid;
                                 this_.addPush.type = '1';
                                 if (response.data.errorCode === 0) {
                                     this_.$Message.config({
@@ -448,7 +448,7 @@ export default {
             let this_ = this;
             this.$ajax.post('sendinfo/pushInfo',
                 'selection=' + JSON.stringify(this_.selection) + '&data=' + JSON.stringify(this_.handlingmethod) +
-                '&pushid=' + this_.pushid)
+                '&pushid=' + this_.pushid + '&meetid=' + this_.$route.query.sceneid)
                 .then(function (response) {
                     if (response.data.errorCode === 0) {
                         this_.$Message.config({
@@ -537,7 +537,7 @@ export default {
             let p = this.pushinformationPath;
             let pp = [];
             for (let i = 0; i < p.length; i++) {
-                if (p[i].meetid === this.$route.query.dispatchtask_id) {
+                if (p[i].meetid === this.$route.query.sceneid) {
                     pp.push(p[i]);
                 }
             }

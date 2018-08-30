@@ -10,11 +10,11 @@ import VueI18n from 'vue-i18n';
 import util from './libs/util';
 import Axios from 'axios';
 
-Axios.defaults.baseURL = 'http://47.92.2.135/meet/';
+Axios.defaults.baseURL = 'http://127.0.0.1/meet/';
 
 Vue.prototype.$ajax = Axios;
 
-Vue.prototype.url = 'http://47.92.2.135';
+Vue.prototype.url = 'http://127.0.0.1';
 
 Vue.use(VueI18n);
 Vue.use(iView);
@@ -52,14 +52,16 @@ new Vue({
         var _this = this;
         this.$ajax.post('meetingcolumns/list')
             .then(function (response) {
-                _this.$store.commit('meetinglist', response.data.meetinglist);
-                _this.$store.commit('guestpersonlist', response.data.guestpersonlist);
-                _this.$store.commit('personcontentlist', response.data.personcontentlist);
-                _this.$store.commit('groupslist', response.data.groupslist);
-                _this.$store.commit('dispatchtasklist', response.data.dispatchtasklist);
-                _this.$store.commit('pushinformationlist', response.data.pushinformationlist);
-                _this.$store.commit('handlingmethodlist', response.data.handlingmethodlist);
-                _this.$store.commit('meetingpersonlist', response.data.meetingpersonlist);
+                _this.$store.commit('meetinglist', response.data.meetinglist); //会议信息
+                _this.$store.commit('guestpersonlist', response.data.guestpersonlist); //关注人员信息
+                _this.$store.commit('basicpersonlist', response.data.basicpersonlist); //基本人员信息（导入部分）
+                _this.$store.commit('personcontentlist', response.data.personcontentlist); //人员信息字典表
+                _this.$store.commit('groupslist', response.data.groupslist); //所有组
+                _this.$store.commit('dispatchtasklist', response.data.dispatchtasklist); //分派任务集合
+                _this.$store.commit('pushinformationlist', response.data.pushinformationlist); //推送信息集合
+                _this.$store.commit('handlingmethodlist', response.data.handlingmethodlist); //推送信息处理方法
+                _this.$store.commit('meetingpersonlist', response.data.meetingpersonlist); //参会人员
+                _this.$store.commit('logslist', response.data.logslist); //日志信息
             });
     }
 });

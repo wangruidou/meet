@@ -259,10 +259,10 @@ export default {
             searchPersonList: [],
             personColumns: [
                 {title: '序号', type: 'index', width: 70, align: 'center'}, // 单选
-                {title: '昵称', key: 'nickname', width: 110, align: 'center'},
-                {title: '国家', key: 'country', width: 110, align: 'center'},
-                {title: '省份', key: 'province', width: 120, align: 'center'},
-                {title: '城市', key: 'towm', width: 110, align: 'center'},
+                {title: '昵称*', key: 'nickname', width: 110, align: 'center'},
+                {title: '国家*', key: 'country', width: 110, align: 'center'},
+                {title: '省份*', key: 'province', width: 120, align: 'center'},
+                {title: '城市*', key: 'towm', width: 110, align: 'center'},
                 {title: '姓名', key: 'name', width: 110, align: 'center'},
                 {title: '单位', key: 'unit', width: 180, align: 'center'},
                 {title: '职务', key: 'position', width: 160, align: 'center'},
@@ -812,7 +812,7 @@ export default {
                             this_.$Message.info('修改失败');
                         }
                     });
-                this.detail = false;
+                this_.detail = false;
             });
         },
         changeyear (value) {

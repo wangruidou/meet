@@ -3,7 +3,8 @@ const meet = {
         // 存放组件之间共享的数据
         meetingData: [],
         meetingColumnsData: [],
-        grestpersonColumnsData: [], // 基本人员
+        basicpersonColumnsData: [], // 基本人员
+        grestpersonColumnsData: [], // 关注人员
         outsidegrouppersonColumnsData: [], // 工作人员
         guestgroupData: [],
         workgroupData: [],
@@ -12,7 +13,8 @@ const meet = {
         dispatchtaskData: [],
         pushinformationData: [],
         handlingmethodData: [],
-        meetingpersonData: []
+        meetingpersonData: [],
+        logsData: [] //日志信息
     },
     mutations: {
         // 显式的更改state里的数据
@@ -182,6 +184,78 @@ const meet = {
                                     state.outsidegrouppersonColumnsData[i].updatedate = data.updatedate;
                                     state.outsidegrouppersonColumnsData[i].verificationproblem = data.verificationproblem;
                                 }
+                            }
+                        }
+                    }
+                }
+            } else {
+                alert(data);
+            }
+        },
+        basicpersonlist (state, data) {
+            if (data) {
+                if (data.length > 0) {
+                    state.basicpersonColumnsData.length = 0;
+                    for (let i = 0; i < data.length; i++) {
+                        if (data[i].type === '' || data[i].type === undefined) {
+                            state.basicpersonColumnsData.push(data[i]);
+                        }
+                    }
+                } else {
+                    if (data.type === '1') {
+                        state.basicpersonColumnsData.push(data);
+                    } else if (data.type === '2') {
+                        for (let i = 0; i < state.basicpersonColumnsData.length; i++) {
+                            if (data.id === state.basicpersonColumnsData[i].id) {
+                                state.basicpersonColumnsData[i].name = data.name;
+                                state.basicpersonColumnsData[i].phone = data.phone;
+                                state.basicpersonColumnsData[i].unit = data.unit;
+                                state.basicpersonColumnsData[i].position = data.position;
+                            }
+                        }
+                    } else if (data.type === '3') {
+                        for (let i = 0; i < state.basicpersonColumnsData.length; i++) {
+                            if (data.id === state.basicpersonColumnsData[i].id) {
+                                state.basicpersonColumnsData.splice(i, 1);
+                            }
+                        }
+                    } else if (data.type === '4') {
+                        for (let i = 0; i < state.basicpersonColumnsData.length; i++) {
+                            if (data.id === state.basicpersonColumnsData[i].id) {
+                                state.basicpersonColumnsData[i].telephone = data.telephone;
+                                state.basicpersonColumnsData[i].fax = data.fax;
+                                state.basicpersonColumnsData[i].email = data.email;
+                                state.basicpersonColumnsData[i].location = data.location;
+                                state.basicpersonColumnsData[i].postcode = data.postcode;
+                                state.basicpersonColumnsData[i].seminar = data.seminar;
+                                state.basicpersonColumnsData[i].unitproperties = data.unitproperties;
+                                state.basicpersonColumnsData[i].unitspecialty = data.unitspecialty;
+                                state.basicpersonColumnsData[i].industryfield = data.industryfield;
+                                state.basicpersonColumnsData[i].internationalproject = data.internationalproject;
+                                state.basicpersonColumnsData[i].midtownrail = data.midtownrail;
+                                state.basicpersonColumnsData[i].relatedstudy = data.relatedstudy;
+                                state.basicpersonColumnsData[i].cooperativeproject = data.cooperativeproject;
+                                state.basicpersonColumnsData[i].ourmeeting = data.ourmeeting;
+                                state.basicpersonColumnsData[i].ourmeeting2 = data.ourmeeting2;
+                                state.basicpersonColumnsData[i].othermeeting = data.othermeeting;
+                                state.basicpersonColumnsData[i].businesssources = data.businesssources;
+                                state.basicpersonColumnsData[i].row1 = data.row1;
+                                state.basicpersonColumnsData[i].year112 = data.year112;
+                                state.basicpersonColumnsData[i].year11 = data.year11;
+                                state.basicpersonColumnsData[i].currentissue = data.currentissue;
+                                state.basicpersonColumnsData[i].countryregion = data.countryregion;
+                                state.basicpersonColumnsData[i].city = data.city;
+                                state.basicpersonColumnsData[i].formerunitposition = data.formerunitposition;
+                                state.basicpersonColumnsData[i].noneed = data.noneed;
+                                state.basicpersonColumnsData[i].updatedatatime = data.updatedatatime;
+                                state.basicpersonColumnsData[i].magazine = data.magazine;
+                                state.basicpersonColumnsData[i].distributionmode = data.distributionmode;
+                                state.basicpersonColumnsData[i].remarks = data.remarks;
+                                state.basicpersonColumnsData[i].salesman = data.salesman;
+                                state.basicpersonColumnsData[i].copies = data.copies;
+                                state.basicpersonColumnsData[i].latestcontact = data.latestcontact;
+                                state.basicpersonColumnsData[i].updatedate = data.updatedate;
+                                state.basicpersonColumnsData[i].verificationproblem = data.verificationproblem;
                             }
                         }
                     }
@@ -371,18 +445,77 @@ const meet = {
                     state.meetingpersonData.length = 0;
                     state.meetingpersonData = data;
                 } else {
-                    for (let i = 0; i < state.meetingpersonData.length; i++) {
-                        if (data.id === state.meetingpersonData[i].id) {
-                            state.meetingpersonData[i].speech = data.speech;
-                            state.meetingpersonData[i].gift = data.gift;
-                            state.meetingpersonData[i].ppt = data.ppt;
-                            state.meetingpersonData[i].signin = data.signin;
-                            state.meetingpersonData[i].meetid = data.meetid;
-                            state.meetingpersonData[i].name = data.name;
-                            state.meetingpersonData[i].phone = data.phone;
+                    // for (let i = 0; i < state.meetingpersonData.length; i++) {
+                    //     if (data.id === state.meetingpersonData[i].id) {
+                    //         state.meetingpersonData[i].speech = data.speech;
+                    //         state.meetingpersonData[i].gift = data.gift;
+                    //         state.meetingpersonData[i].ppt = data.ppt;
+                    //         state.meetingpersonData[i].signin = data.signin;
+                    //         state.meetingpersonData[i].meetid = data.meetid;
+                    //         state.meetingpersonData[i].name = data.name;
+                    //         state.meetingpersonData[i].phone = data.phone;
+                    //     }
+                    // }
+                    if (data.type === '2') {
+                        for (let i = 0; i < state.meetingpersonData.length; i++) {
+                            if (data.id === state.meetingpersonData[i].id) {
+                                state.meetingpersonData[i].speech = data.speech;
+                                state.meetingpersonData[i].gift = data.gift;
+                                state.meetingpersonData[i].ppt = data.ppt;
+                                state.meetingpersonData[i].signin = data.signin;
+                                state.meetingpersonData[i].meetid = data.meetid;
+                                state.meetingpersonData[i].name = data.name;
+                                state.meetingpersonData[i].phone = data.phone;
+                            }
+                        }
+                    } else if (data.type === '3') {
+                        for (let i = 0; i < state.meetingpersonData.length; i++) {
+                            if (data.id === state.meetingpersonData[i].id) {
+                                state.meetingpersonData[i].telephone = data.telephone;
+                                state.meetingpersonData[i].fax = data.fax;
+                                state.meetingpersonData[i].email = data.email;
+                                state.meetingpersonData[i].location = data.location;
+                                state.meetingpersonData[i].postcode = data.postcode;
+                                state.meetingpersonData[i].seminar = data.seminar;
+                                state.meetingpersonData[i].unitproperties = data.unitproperties;
+                                state.meetingpersonData[i].unitspecialty = data.unitspecialty;
+                                state.meetingpersonData[i].industryfield = data.industryfield;
+                                state.meetingpersonData[i].internationalproject = data.internationalproject;
+                                state.meetingpersonData[i].midtownrail = data.midtownrail;
+                                state.meetingpersonData[i].relatedstudy = data.relatedstudy;
+                                state.meetingpersonData[i].cooperativeproject = data.cooperativeproject;
+                                state.meetingpersonData[i].ourmeeting = data.ourmeeting;
+                                state.meetingpersonData[i].ourmeeting2 = data.ourmeeting2;
+                                state.meetingpersonData[i].othermeeting = data.othermeeting;
+                                state.meetingpersonData[i].businesssources = data.businesssources;
+                                state.meetingpersonData[i].row1 = data.row1;
+                                state.meetingpersonData[i].year112 = data.year112;
+                                state.meetingpersonData[i].year11 = data.year11;
+                                state.meetingpersonData[i].currentissue = data.currentissue;
+                                state.meetingpersonData[i].countryregion = data.countryregion;
+                                state.meetingpersonData[i].city = data.city;
+                                state.meetingpersonData[i].formerunitposition = data.formerunitposition;
+                                state.meetingpersonData[i].noneed = data.noneed;
+                                state.meetingpersonData[i].updatedatatime = data.updatedatatime;
+                                state.meetingpersonData[i].magazine = data.magazine;
+                                state.meetingpersonData[i].distributionmode = data.distributionmode;
+                                state.meetingpersonData[i].remarks = data.remarks;
+                                state.meetingpersonData[i].salesman = data.salesman;
+                                state.meetingpersonData[i].copies = data.copies;
+                                state.meetingpersonData[i].latestcontact = data.latestcontact;
+                                state.meetingpersonData[i].updatedate = data.updatedate;
+                                state.meetingpersonData[i].verificationproblem = data.verificationproblem;
+                            }
                         }
                     }
                 }
+            } else {
+                alert(data);
+            }
+        },
+        logslist (state, data) {
+            if (data) {
+                state.logsData = data;
             } else {
                 alert(data);
             }
@@ -396,8 +529,15 @@ const meet = {
         meetinglistPath: (state) => { // 会议
             return state.meetingColumnsData;
         },
-        guestpersonlistPath: (state) => { // 基本人员
-            // return state.grestpersonColumnsData;
+        basicpersonlistPath: (state) => { // 基本人员
+            // return state.basicpersonColumnsData;
+            var ret = state.basicpersonColumnsData.slice(0);
+            for (let i = 0, len = ret.length; i < len; i++) {
+                ret[i].key = ret[i].openid;
+            }
+            return ret;
+        },
+        guestpersonlistPath: (state) => { // 关注人员
             var ret = state.grestpersonColumnsData.slice(0);
             for (let i = 0, len = ret.length; i < len; i++) {
                 ret[i].key = ret[i].openid;
@@ -450,6 +590,9 @@ const meet = {
                 ret[i].key = ret[i].openid;
             }
             return ret;
+        },
+        logsPath: (state) => { // 处理方法
+            return state.logsData;
         }
     }
 

@@ -66,7 +66,8 @@ export const otherRouter = {
         { path: 'pushinformation', title: '推送信息', name: 'pushinformation', component: () => import('@/views/meeting-page/PushInformation.vue') },
         { path: 'groupparticipants', title: '参会人员分组', name: 'groupparticipants', component: () => import('@/views/meeting-page/GroupParticipants.vue') },
         { path: 'staffmanagement', title: '参会人员管理', name: 'staffmanagement', component: () => import('@/views/meeting-page/StaffManagement.vue') },
-        { path: 'workgroupmanage', title: '工作人员分组', name: 'workgroupmanage', component: () => import('@/views/meeting-page/WorkGroupManage.vue') }
+        { path: 'workgroupmanage', title: '工作人员分组', name: 'workgroupmanage', component: () => import('@/views/meeting-page/WorkGroupManage.vue') },
+        { path: 'pushhistory', title: '推送消息历史', name: 'pushhistory', component: () => import('@/views/meeting-page/PushHistory.vue') }
     ]
 };
 
@@ -235,24 +236,34 @@ export const appRouter = [
     //         { path: 'index', title: '错误页面', name: 'errorpage_index', component: () => import('@/views/error-page/error-page.vue') }
     //     ]
     // },
+    // {
+    //     path: '/meeting-page',
+    //     icon: 'person',
+    //     title: '基本人员管理',
+    //     name: 'basicperson',
+    //     component: Main,
+    //     children: [
+    //         { path: 'basicperson', title: '基本人员管理', name: 'basicperson_index',component: () => import('@/views/meeting-page/basicpersons.vue')}
+    //     ]
+    // },
     {
         path: '/meeting-page',
         icon: 'person',
-        title: '基本人员管理',
+        title: '关注人员管理',
         name: 'person',
         component: Main,
         children: [
-            { path: 'person', title: '基本人员管理', name: 'person_index',component: () => import('@/views/meeting-page/persons.vue')}
+            { path: 'person', title: '关注人员管理', name: 'person_index',component: () => import('@/views/meeting-page/persons.vue')}
         ]
     },
     {
         path: '/meeting-page',
         icon: 'person-stalker',
-        title: '基本人员分组',
+        title: '关注人员分组',
         name: 'group',
         component: Main,
         children: [
-            { path: 'group', title: '基本人员分组', name: 'group_index', component: () => import('@/views/meeting-page/GroupingManagement.vue') }
+            { path: 'group', title: '关注人员分组', name: 'group_index', component: () => import('@/views/meeting-page/GroupingManagement.vue') }
         ]
     },
     {
@@ -284,7 +295,17 @@ export const appRouter = [
         children: [
             { path: 'qrCode', title: '人员种类二维码', name: 'qrCode_index', component: () => import('@/views/meeting-page/QRCode.vue') }
         ]
-    }
+    },
+    // {
+    //     path: '/meeting-page',
+    //     icon: 'person',
+    //     title: '标签种类',
+    //     name: 'labelType',
+    //     component: Main,
+    //     children: [
+    //         { path: 'labelType', title: '标签种类', name: 'labelType_index', component: () => import('@/views/meeting-page/LabelType.vue') }
+    //     ]
+    // }
 ];
 
 // 所有上面定义的路由都要写在下面的routers里

@@ -13,20 +13,21 @@
                     <Button style="margin-left:600px;margin-bottom:15px;" type="primary" @click="NewSign()">选择签到模板</Button>
                 </tr>
                 <tr>
-                    <img style="margin-left:50px;margin-right:50px;" id="img" width="300" height="200">
-                    <input type="text" id="test" value="" style="display:none" />
+                    <img :src="releasephoto" style="margin-left:50px;margin-right:50px;" width="300" height="200">
+                    <input type="text" v-model="releasephotoid" style="display:none" />
 
-                    <img style="margin-left:350px;margin-right:50px;" id="imgSign" width="300" height="200">
-                    <input type="text" id="testSign" value="" style="display:none" />
+                    <img :src="signinphoto" style="margin-left:350px;margin-right:50px;" width="300" height="200">
+                    <input type="text" v-model="signinphotoid" style="display:none" />
                 </tr>
                 <tr>
                     <font style="margin-left:50px;font-weight:bold;">请输入发布内容:</font>
                     <font style="margin-left:600px;font-weight:bold;">请输入签到内容:</font>
                 </tr>
                 <tr>
-                    <textarea id="tt" style="width:300px;height:60px;margin-left:50px;margin-top:5px;"></textarea>
+                    <!-- <Input v-model="releasetext" type="textarea" style="width:300px;height:60px;margin-left:50px;" placeholder="请输入发布内容..."></Input> -->
+                    <textarea v-model="releasetext" style="width:300px;height:60px;margin-left:50px;margin-top:5px;" placeholder="请输入发布内容..."></textarea>
 
-                    <textarea id="sign" style="width:300px;height:60px;margin-left:400px;margin-top:5px;"></textarea>
+                    <textarea v-model="signintext" style="width:300px;height:60px;margin-left:400px;margin-top:5px;" placeholder="请输入签到内容..."></textarea>
                 </tr>
                 
                 <tr>
@@ -34,8 +35,8 @@
                     <font style="margin-left:580px;font-weight:bold;margin-top:5px;">请输入签到url地址:</font>
                 </tr>
                 <tr>
-                    <input type="text" id="url" value="" style="width:400px;margin-left:50px;margin-top:5px;margin-bottom:5px;">
-                    <input type="text" id="urlSign" value="" style="width:400px;margin-left:300px;margin-top:5px;margin-bottom:5px;">
+                    <input type="text" v-model="releaseurl" style="width:400px;margin-left:50px;margin-top:5px;margin-bottom:5px;">
+                    <input type="text" v-model="signinurl" style="width:400px;margin-left:300px;margin-top:5px;margin-bottom:5px;">
                 </tr>
                 <tr>
                     <Button style="float:right;margin-top:15px;" type="primary" @click="nextStep()">下一步</Button>
@@ -83,12 +84,13 @@
                 <tr>
                     <td>
                         <!-- <form method="post" id="Form" name="Form" enctype="multipart/form-data"> -->
+                            <span style="font-size:14px;">选择的图片为360*200</span><br>
                             <input id="file" name="file" class="filepath" @change="changepic(this)" type="file" accept="image/*"></input>
                             <Button style="margin-left:50px;margin-bottom:15px;" type="primary" @click="Uploading()">上传模板</Button>
                             <Button style="margin-left:15px;margin-bottom:15px;" type="primary" @click="Delete()">删除模板</Button>
                             <Button style="margin-left:15px;margin-bottom:15px;" type="primary" @click="Affirm()">确认</Button> 
                             <br>
-                            <img src="" id="show" width="100">
+                            <img :src="show" width="100">
                         <!-- </form> -->
                                         
                     </td>
@@ -112,12 +114,13 @@
             <Form ref="formItem" :label-width="80">
                 <tr>
                     <td>
+                        <span style="font-size:14px;">选择的图片为360*200</span><br>
                         <input id="fileSign" name="fileSign" class="filepath" @change="changepicSign(this)" type="file" accept="image/*"></input>
                         <Button style="margin-left:50px;margin-bottom:15px;" type="primary" @click="UploadingSign()">上传模板</Button>
                         <Button style="margin-left:15px;margin-bottom:15px;" type="primary" @click="DeleteSign()">删除模板</Button>
                         <Button style="margin-left:15px;margin-bottom:15px;" type="primary" @click="AffirmSign()">确认</Button> 
                         <br>
-                        <img src="" id="showSign" width="100">
+                        <img :src="showSign" width="100">
                     </td>
                 </tr>
                 <table>
@@ -155,7 +158,19 @@ export default {
             targetEleg: '',
             targetElep: '',
             imageData: [],
-            imageDataSign: []
+            imageDataSign: [],
+            releasephoto:'', // 发布模板src
+            releasephotoid:'', //发布模板信息
+            signinphoto:'', // 签到模板src
+            signinphotoid:'', // 签到模板信息
+            releasetext:'', // 发布内容
+            signintext:'', // 签到内容
+            releaseurl:'', // 发布url跳转地址
+            signinurl:'', // 签到url跳转地址
+            sendgroup:'', // 发送的组
+            sendperson:'', // 发送的人
+            show:null,
+            showSign:null
         };
     },
     methods: {
@@ -189,7 +204,7 @@ export default {
                     }
                 });
 
-            let t = document.getElementById('test').value;
+            let t = this.releasephotoid;
             if (t === '') {
                 this.status = '';
             } else {
@@ -217,7 +232,7 @@ export default {
                     }
                 });
 
-            let t = document.getElementById('testSign').value;
+            let t = this.signinphotoid;
             if (t === '') {
                 this.statusSign = '';
             } else {
@@ -226,19 +241,21 @@ export default {
             this.signin = true;
         },
         changepic () {
+            let this_ = this;
             let reads = new FileReader();
             let f = document.getElementById('file').files[0];
             reads.readAsDataURL(f);
             reads.onload = function (e) {
-                document.getElementById('show').src = this.result;
+                this_.show = this.result;
             };
         },
         changepicSign () {
+            let this_ = this;
             let reads = new FileReader();
             let f = document.getElementById('fileSign').files[0];
             reads.readAsDataURL(f);
             reads.onload = function (e) {
-                document.getElementById('showSign').src = this.result;
+                this_.showSign = this.result;
             };
         },
         Uploading () {
@@ -292,8 +309,8 @@ export default {
                 this.$Message.info('请选择发布模板！！');
             }
             let src = document.getElementsByName(this.status)[0].src;
-            document.getElementById('img').src = src;
-            document.getElementById('test').value = this.status;
+            this.releasephoto = src;
+            this.releasephotoid = this.status;
             this.modal = false;
         },
         AffirmSign () {
@@ -301,8 +318,8 @@ export default {
                 this.$Message.info('请选择签到模板！！');
             }
             let src = document.getElementsByName(this.statusSign)[0].src;
-            document.getElementById('imgSign').src = src;
-            document.getElementById('testSign').value = this.statusSign;
+            this.signinphoto = src;
+            this.signinphotoid = this.statusSign;
             this.signin = false;
         },
         change (row) {
@@ -324,12 +341,12 @@ export default {
                         this_.$Message.info('删除成功');
                         this_.New();
                         this_.status = '';
-                        document.getElementById('img').src = '';
-                        document.getElementById('test').value = '';
+                        this_.releasephoto = '';
+                        this_.releasephotoid = '';
                         this_.NewSign();
                         this_.statusSign = '';
-                        document.getElementById('imgSign').src = '';
-                        document.getElementById('testSign').value = '';
+                        this_.signinphoto = '';
+                        this_.signinphotoid = '';
                         this_.signin = false;
                     } else {
                         this_.$Message.info('删除失败');
@@ -349,12 +366,12 @@ export default {
                         this_.$Message.info('删除成功');
                         this_.New();
                         this_.status = '';
-                        document.getElementById('img').src = '';
-                        document.getElementById('test').value = '';
+                        this_.releasephoto = '';
+                        this_.releasephotoid = '';
                         this_.NewSign();
                         this_.statusSign = '';
-                        document.getElementById('imgSign').src = '';
-                        document.getElementById('testSign').value = '';
+                        this_.signinphoto = '';
+                        this_.signinphotoid = '';
                         this_.modal = false;
                     } else {
                         this_.$Message.info('删除失败');
@@ -362,16 +379,15 @@ export default {
                 });
         },
         nextStep () {
-            let t = document.getElementById('test').value;
-            let src = document.getElementById('img').src;
-            let text = document.getElementById('tt').value;
-            let url = document.getElementById('url').value;
+            let t = this.releasephotoid;
+            let src = this.releasephoto;
+            let text = this.releasetext;
+            let url = this.releaseurl;
 
-            let tSign = document.getElementById('testSign').value;
-            let srcSign = document.getElementById('imgSign').src;
-            let textSign = document.getElementById('sign').value;
-            let urlSign = document.getElementById('urlSign').value;
-
+            let tSign = this.signinphotoid;
+            let srcSign = this.signinphoto;
+            let textSign = this.signintext;
+            let urlSign = this.signinurl;
             this.$Message.config({
                 top: 50,
                 duration: 3,
@@ -408,6 +424,21 @@ export default {
             this.img = t;
             this.srcSign = srcSign;
             this.imgSign = tSign;
+
+            let group = this.sendgroup;
+            let resultg = [];
+            if(group != null && group != undefined) {
+                resultg = group.split(",");
+            }
+            let person = this.sendperson;
+            let resultp = [];
+            if(person != null && person != undefined) {
+                resultp = person.split(",");
+            }
+            this.targetKeysg = this.getTargetKeysG(1, resultg);
+            this.targetEleg = group;
+            this.targetKeysp = this.getTargetKeysP(1, resultp);
+            this.targetElep = person;
         },
         laststep () {
             document.getElementById('a').style.display = 'block';
@@ -423,6 +454,17 @@ export default {
                 return data.nickname.indexOf(query) > -1;
             }
         },
+        getTargetKeysG (a, result) {
+            if (a === 0) {
+                return this.guestgroupPath.filter(item => item.key);
+            } else if (a === 1) {
+                let ary = [];
+                for (let i = 0; i < result.length; i++) {
+                    ary.push(result[i]);
+                }
+                return ary;
+            }
+        },
         handleChangeg (newTargetKeys) {
             let targetEleg = '';
             for (let i = 0; i < this.guestgroupPath.length; i++) {
@@ -435,6 +477,17 @@ export default {
             }
             this.targetEleg = targetEleg.substring(0, targetEleg.length - 1);
             this.targetKeysg = newTargetKeys;
+        },
+        getTargetKeysP (a, result) {
+            if (a === 0) {
+                return this.guestpersonlistPath.filter(item => item.key);
+            } else if (a === 1) {
+                let ary = [];
+                for (let i = 0; i < result.length; i++) {
+                    ary.push(result[i]);
+                }
+                return ary;
+            }
         },
         handleChangep (newTargetKeys) {
             let targetElep = '';
@@ -450,16 +503,17 @@ export default {
             this.targetKeysp = newTargetKeys;
         },
         release () {
-            let text = document.getElementById('tt').value;
-            let url = document.getElementById('url').value;
-            let textSign = document.getElementById('sign').value;
-            let urlSign = document.getElementById('urlSign').value;
+            let text = this.releasetext;
+            let url = this.releaseurl;
+            let textSign = this.signintext;
+            let urlSign = this.signinurl;
             this.$Message.config({
                 top: 50,
                 duration: 3,
                 width: 200
             });
-            if (this.targetEleg === '' && this.targetElep === '') {
+            if ((this.targetEleg === '' || this.targetEleg === undefined || this.targetEleg === 'undefined')  
+                && (this.targetElep === '' || this.targetElep === undefined || this.targetElep ==='undefined')) {
                 this.$Message.info('请您至少选择一个组或人！！');
                 return false;
             }
@@ -490,6 +544,43 @@ export default {
         guestpersonlistPath: function () {
             return this.$store.getters.guestpersonlistPath;
         }
+        // meetData: function () {
+        //     let param = this.$route.query.param;
+        //     return param;
+        // },
+    },
+    created() {
+        let param = this.$route.query.param;
+        let releasephoto = "";
+        if(param.releasephotoid != null && param.releasephotoid != undefined) {
+            releasephoto = this.url + '/meet/files/' + param.releasephotoid;
+        }
+        this.releasephoto = releasephoto;
+        this.releasephotoid = param.releasephotoid;
+
+        let signinphoto = "";
+        if(param.signinphotoid != null && param.signinphotoid != undefined) {
+            signinphoto = this.url + '/meet/files/' + param.signinphotoid;
+        }
+        this.signinphoto = signinphoto;
+        this.signinphotoid = param.signinphotoid;
+
+        this.releasetext = param.releasetext;
+        this.signintext = param.signintext;
+
+        let releaseurl = "";
+        if(param.releaseurl != null && param.releaseurl != undefined) {
+            releaseurl = param.releaseurl.substring(0,param.releaseurl.indexOf("?"));
+        }
+        this.releaseurl = releaseurl;
+
+        let signinurl = "";
+        if(param.signinurl != null && param.signinurl != undefined) {
+            signinurl = param.signinurl.substring(0,param.signinurl.indexOf("?"));
+        }
+        this.signinurl = signinurl;
+        this.sendgroup = param.sendgroup;
+        this.sendperson = param.sendperson;
     }
 };
 </script>
