@@ -8,6 +8,9 @@
             <!-- <Col span="4" offset="14">
                 <Button type="primary" @click="addPerson('personValidate')">添加人员</Button>
             </Col> -->
+            <Col span="4" offset="14">
+                <Button type="primary" @click="q()">详细查询</Button>
+            </Col>
         </Row>
     </div>
     <br>
@@ -23,6 +26,153 @@
             <FormItem>
                 <Button type="primary" @click="savePerson('personValidate')">保存</Button>
                 <Button type="ghost" @click="resetPerson('personValidate')" style="margin-left: 8px">重置</Button>
+            </FormItem>
+        </Form>
+        <div slot="footer"></div>
+    </Modal>
+
+    <Modal v-model="query" title="详细标签查询" width="60%">
+        <Form :label-width="110">
+            <tr>
+                <td>
+                    <FormItem label="单位专业">
+                        <Select v-model="unitspecialty_query" multiple style="width:300px">
+                            <Option v-for="item in personcontent" v-if="item.type==1" :value="item.id" :key="item.id">{{ item.content }}</Option>
+                        </Select>
+                    </FormItem>
+                </td>
+                <td>
+                    <FormItem label="单位性质">
+                        <Select v-model="unitproperties_query" multiple style="width:300px">
+                            <Option v-for="item in personcontent" v-if="item.type==2" :value="item.id" :key="item.id">{{ item.content }}</Option>
+                        </Select>
+                    </FormItem>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <FormItem label="行业领域">
+                        <Select v-model="industryfield_query" multiple style="width:300px">
+                            <Option v-for="item in personcontent" v-if="item.type==3" :value="item.id" :key="item.id">{{ item.content }}</Option>
+                        </Select>
+                    </FormItem>
+                </td>
+                <td>
+                    <FormItem label="研究会-职务">
+                        <Select v-model="seminar_query" multiple style="width:300px">
+                            <Option v-for="item in personcontent" v-if="item.type==4" :value="item.id" :key="item.id">{{ item.content }}</Option>
+                        </Select>
+                    </FormItem>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <FormItem label="国际项目">
+                        <Select v-model="internationalproject_query" multiple style="width:300px">
+                            <Option v-for="item in personcontent" v-if="item.type==5" :value="item.id" :key="item.id">{{ item.content }}</Option>
+                        </Select>
+                    </FormItem>
+                </td>
+                <td>
+                    <FormItem label="合作项目">
+                        <Select v-model="cooperativeproject_query" multiple style="width:300px">
+                            <Option v-for="item in personcontent" v-if="item.type==6" :value="item.id" :key="item.id">{{ item.content }}</Option>
+                        </Select>
+                    </FormItem>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <FormItem label="中城轨-成员">
+                        <Select v-model="midtownrail_query" multiple style="width:300px">
+                            <Option v-for="item in personcontent" v-if="item.type==8" :value="item.id" :key="item.id">{{ item.content }}</Option>
+                        </Select>
+                    </FormItem>
+                </td>
+                <td>
+                    <FormItem label="相关学协会">
+                        <Select v-model="relatedstudy_query" multiple style="width:300px">
+                            <Option v-for="item in personcontent" v-if="item.type==9" :value="item.id" :key="item.id">{{ item.content }}</Option>
+                        </Select>
+                    </FormItem>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <FormItem label="我们会议">
+                        <Select v-model="ourmeeting_query" multiple style="width:300px">
+                            <Option v-for="item in personcontent" v-if="item.type==10" :value="item.id" :key="item.id">{{ item.content }}</Option>
+                        </Select>
+                    </FormItem>
+                </td>
+                <td>
+                    <FormItem label="其他会议">
+                        <Select v-model="othermeeting_query" multiple style="width:300px">
+                            <Option v-for="item in personcontent" v-if="item.type==11" :value="item.id" :key="item.id">{{ item.content }}</Option>
+                        </Select>
+                    </FormItem>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <FormItem label="业务来源">
+                        <Select v-model="businesssources_query" multiple style="width:300px">
+                            <Option v-for="item in personcontent" v-if="item.type==12" :value="item.id" :key="item.id">{{ item.content }}</Option>
+                        </Select>
+                    </FormItem>
+                </td>
+                <td>
+                    <FormItem label="国家/地区">
+                        <Select v-model="countryregion_query" multiple style="width:300px">
+                            <Option v-for="item in personcontent" v-if="item.type==13" :value="item.id" :key="item.id">{{ item.content }}</Option>
+                        </Select>
+                    </FormItem>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <FormItem label="城市">
+                        <Select v-model="city_query" multiple style="width:300px">
+                            <Option v-for="item in personcontent" v-if="item.type==14" :value="item.id" :key="item.id">{{ item.content }}</Option>
+                        </Select>
+                    </FormItem>
+                </td>
+                <td>
+                    <FormItem label="当期发行">
+                        <Select v-model="currentissue_query" multiple style="width:300px" @on-change="changecurrent(currentissue)">
+                            <Option v-for="item in personcontent" v-if="item.type==15" :value="item.id" :key="item.id">{{ item.content }}</Option>
+                        </Select>
+                    </FormItem>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <FormItem label="是否寄杂志">
+                        <Select v-model="magazine_query" multiple style="width:300px">
+                            <Option v-for="item in personcontent" v-if="item.type==16" :value="item.id" :key="item.id">{{ item.content }}</Option>
+                        </Select>
+                    </FormItem>
+                </td>
+                <td>
+                    <FormItem label="发行方式">
+                        <Select v-model="distributionmode_query" multiple style="width:300px">
+                            <Option v-for="item in personcontent" v-if="item.type==17" :value="item.id" :key="item.id">{{ item.content }}</Option>
+                        </Select>
+                    </FormItem>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <FormItem label="业务员">
+                        <Select v-model="salesman_query" multiple style="width:300px">
+                            <Option v-for="item in personcontent" v-if="item.type==18" :value="item.id" :key="item.id">{{ item.content }}</Option>
+                        </Select>
+                    </FormItem>
+                </td>
+            </tr>
+            <FormItem>
+                <Button type="primary" @click="savePerson2()" style="margin-left:200px;">查询</Button>
+                <Button type="ghost" @click="resetPerson_query()" style="margin-left: 8px">重置</Button>
             </FormItem>
         </Form>
         <div slot="footer"></div>
@@ -258,15 +408,17 @@ export default {
             person_index: -1,
             searchPersonList: [],
             personColumns: [
-                {title: '序号', type: 'index', width: 70, align: 'center'}, // 单选
-                {title: '昵称*', key: 'nickname', width: 110, align: 'center'},
-                {title: '国家*', key: 'country', width: 110, align: 'center'},
-                {title: '省份*', key: 'province', width: 120, align: 'center'},
-                {title: '城市*', key: 'towm', width: 110, align: 'center'},
-                {title: '姓名', key: 'name', width: 110, align: 'center'},
-                {title: '单位', key: 'unit', width: 180, align: 'center'},
-                {title: '职务', key: 'position', width: 160, align: 'center'},
-                {title: '手机号', key: 'phone', width: 140, align: 'center'},
+                {title: '序号', type: 'index', width: 60, align: 'center'}, // 单选
+                {title: '昵称*', key: 'nickname', width: 100, align: 'center'},
+                {title: '国家*', key: 'country', width: 90, align: 'center'},
+                {title: '省份*', key: 'province', width: 100, align: 'center'},
+                {title: '城市*', key: 'towm', width: 80, align: 'center'},
+                {title: '姓名', key: 'name', width: 80, align: 'center'},
+                {title: '单位', key: 'unit', width: 160, align: 'center'},
+                {title: '职务', key: 'position', width: 130, align: 'center'},
+                {title: '手机号', key: 'phone', width: 110, align: 'center'},
+                {title: '关注时间', key: 'inserttime', width: 150, align: 'center'},
+                {title: '所属关注组', key: 'groupname', width: 120, align: 'center'},
                 {title: '操作',
                     key: 'action',
                     align: 'center',
@@ -386,10 +538,54 @@ export default {
             city: [],
             magazine: [],
             distributionmode: [],
-            salesman: []
+            salesman: [],
+
+            query: false, // 标签查询页面打开状态
+            seminar_query: [],
+            unitproperties_query: [],
+            unitspecialty_query: [],
+            industryfield_query: [],
+            internationalproject_query: [],
+            midtownrail_query: [],
+            relatedstudy_query: [],
+            cooperativeproject_query: [],
+            ourmeeting_query: [],
+            ourmeeting2_query: [],
+            othermeeting_query: [],
+            businesssources_query: [],
+            currentissue_query: [],
+            countryregion_query: [],
+            city_query: [],
+            magazine_query: [],
+            distributionmode_query: [],
+            salesman_query: [],
+            query_status:''
         };
     },
     methods: {
+        q () {
+            this.person_index = -1;
+            if(this.query_status !== "1") {
+                this.seminar_query= [],
+                this.unitproperties_query= [],
+                this.unitspecialty_query= [],
+                this.industryfield_query= [],
+                this.internationalproject_query= [],
+                this.midtownrail_query= [],
+                this.relatedstudy_query= [],
+                this.cooperativeproject_query= [],
+                this.ourmeeting_query= [],
+                this.othermeeting_query= [],
+                this.businesssources_query= [],
+                this.currentissue_query= [],
+                this.countryregion_query= [],
+                this.city_query= [],
+                this.magazine_query= [],
+                this.distributionmode_query= [],
+                this.salesman_query= []
+            }
+            this.query = true;
+        },
         searchPerson (value) {
             this.value = value;
         },
@@ -519,6 +715,25 @@ export default {
             this.magazine = [];
             this.distributionmode = [];
             this.salesman = [];
+        },
+        resetPerson_query () {
+            this.seminar_query = [];
+            this.unitproperties_query = [];
+            this.unitspecialty_query = [];
+            this.industryfield_query = [];
+            this.internationalproject_query = [];
+            this.midtownrail_query = [];
+            this.relatedstudy_query = [];
+            this.cooperativeproject_query = [];
+            this.ourmeeting_query = [];
+            this.othermeeting_query = [];
+            this.businesssources_query = [];
+            this.currentissue_query = [];
+            this.countryregion_query = [];
+            this.city_query = [];
+            this.magazine_query = [];
+            this.distributionmode_query = [];
+            this.salesman_query = [];
         },
         detailPerson (row) {
             this.seminar = [];
@@ -815,6 +1030,24 @@ export default {
                 this_.detail = false;
             });
         },
+        savePerson2 () {
+            let this_ = this;
+            this.query_status = "1";
+            this.$ajax.post('guestperson/query',
+                '&seminar_query=' + this_.seminar_query + '' + '&unitproperties_query=' + this_.unitproperties_query + '' + 
+                '&unitspecialty_query=' + this_.unitspecialty_query + '' + '&industryfield_query=' + this_.industryfield_query + '' + 
+                '&internationalproject_query=' + this_.internationalproject_query + '' + '&midtownrail_query=' + this_.midtownrail_query + '' + 
+                '&relatedstudy_query=' + this_.relatedstudy_query + '' + '&cooperativeproject_query=' + this_.cooperativeproject_query + '' + 
+                '&ourmeeting_query=' + this_.ourmeeting_query + '' + '&othermeeting_query=' + this_.othermeeting_query + '' +
+                '&businesssources_query=' + this_.businesssources_query + '' +  '&currentissue_query=' + this_.currentissue_query + '' + 
+                '&countryregion_query=' + this_.countryregion_query + '' + '&city_query=' + this_.city_query + '' + 
+                '&magazine_query=' + this_.magazine_query + '' + '&distributionmode_query=' + this_.distributionmode_query + '' +
+                '&salesman_query=' + this_.salesman_query + '' + '&persontype=' + "1")
+                .then(function (response) {
+                    this_.$store.commit('guestpersonlist', response.data.guestpersonlist);
+                });
+            this.query = false;
+        },
         changeyear (value) {
             let year = '';
             let current = this.currentissue;
@@ -878,6 +1111,9 @@ export default {
         personcontent: function () {
             return this.$store.getters.personcontentPath;
         },
+        guestgroupPath: function () {
+            return this.$store.getters.guestgroupPath;
+        },
         pageTotal: function () {
             let person = this.guestpersonlistPath;
             let persons = [];
@@ -892,9 +1128,21 @@ export default {
         },
         person_data: function () {
             let person = this.guestpersonlistPath;
+            let guestgroup = this.guestgroupPath;
             let persons = [];
             for (let i = 0; i < person.length; i++) {
                 if (person[i].nickname.indexOf(this.value) !== -1) {
+                    let b = '';
+                    for(let j = 0; j < guestgroup.length; j++) {
+                        let a = guestgroup[j].persons.split(',');
+                        for (let z = 0; z < a.length; z++) {
+                            if (a[z] === person[i].openid) {
+                                b += guestgroup[j].group_name + ',';
+                            }
+                        }
+                    }
+                    b = b.substring(0, b.length - 1);
+                    person[i].groupname = b;
                     persons.push(person[i]);
                 }
             }

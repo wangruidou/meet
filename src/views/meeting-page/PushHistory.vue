@@ -26,6 +26,7 @@ export default {
                 {title: '序号', type: 'index', width: 70, align: 'center'}, // 单选
                 {title: '操作模块', key: 'log_type', width: 200, align: 'center'},
                 {title: '推送信息内容', key: 'log_content', align: 'center'},
+                {title: '组名/人名', key: 'groupname', width: 300, align: 'center'},
                 {title: '操作时间', key: 'log_time', width: 300, align: 'center'}
             ]
         };
@@ -36,6 +37,18 @@ export default {
         },
     },
     computed: {
+        guestgroupPath: function () {
+            return this.$store.getters.guestgroupPath;
+        },
+        workgroupPath: function () {
+            return this.$store.getters.workgroupPath;
+        },
+        attendgroupPath: function () {
+            return this.$store.getters.attendgroupPath;
+        },
+        meetingpersonPath: function () {
+            return this.$store.getters.meetingpersonPath;
+        },
         logsPath: function () {
             return this.$store.getters.logsPath;
         },
@@ -55,10 +68,33 @@ export default {
         },
         logs_data: function () {
             let logs = this.logsPath;
+            let meetingperson = this.meetingpersonPath;
             let log_data = [];
+            let group = this.guestgroupPath.concat(this.workgroupPath,this.attendgroupPath);
             for (let i = 0; i < logs.length; i++) {
+                let b = '';
                 if (logs[i].meetid !== '' && logs[i].meetid !== undefined) {
                     if (logs[i].meetid === this.$route.query.sceneid) {
+                        if (logs[i].groups !== '') {
+                            let groups = logs[i].groups.split(',');
+                            for (let j = 0; j < groups.length; j++) {
+                                if (logs[i].log_type == "推送具体信息") {
+                                    for (let z = 0; z < meetingperson.length; z++) {
+                                        if (meetingperson[z].openid === groups[j]) {
+                                            b += meetingperson[z].name + ',';
+                                        }
+                                    }
+                                } else {
+                                    for (let z = 0; z < group.length; z++) {
+                                        if (group[z].id === groups[j]) {
+                                            b += group[z].group_name + ',';
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        b = b.substring(0, b.length - 1);
+                        logs[i].groupname = b;
                         log_data.push(logs[i]);
                     }
                 }

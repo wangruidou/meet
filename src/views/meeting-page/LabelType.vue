@@ -3,33 +3,38 @@
     <div class="ivu-row">
         <Row>
             <Col span="6">
-                <Input placeholder="查询分组" @input="search" list="group" clearable></Input>
-                <datalist id='group'>
-                    <option v-for="item in data1" :value="item"></option>
+                <Input placeholder="查询标签种类" @input="search" clearable></Input>
+                <datalist>
+                    <option v-for="item in labelList" :value="item"></option>
                 </datalist>
             </Col>
             <Col span="4" offset="14">
-                <Button type="primary" @click="createGroup('formItem')">新建分组</Button>
+                <!-- <Button type="primary" @click="createLabel('formItem')">新建标签</Button> -->
             </Col>
         </Row>
     </div>
     <br>
-    <Table highlight-row ref="currentRowTable" :columns="columns1" :data="data1"></Table>
-    <Modal v-model="modal1" title="分组信息" width="600">
+    <Table highlight-row ref="currentRowTable" :columns="columns" :data="labelList"></Table>
+
+    <Modal v-model="detailsModal" title="标签信息" width="70%">
+        <div class="ivu-row" style="margin-bottom:10px">
+            <Col span="6">
+                <Input placeholder="查询标签内容" @input="searchDetails" clearable></Input>
+                <datalist>
+                    <option v-for="item in labelDetailsList" :value="item"></option>
+                </datalist>
+            </Col>
+            <Col span="4" offset="14">
+                <Button type="primary" @click="create('formItem')">新建标签</Button>
+            </Col>
+        </div>
+        <Table highlight-row ref="currentRowTable1" :columns="columnsDetails" :data="labelDetailsList"></Table>
+    </Modal>
+
+    <Modal v-model="labelModal" title="标签内容" width="600">
         <Form ref="formItem" :model="formItem" :rules="ruleValidate" :label-width="100">
-            <FormItem label="分组名称" prop="group_name">
-                <Input v-model="formItem.group_name" placeholder="请输入..." clearable></Input>
-            </FormItem>
-            <FormItem label="选择人员">
-                <Transfer
-                    :titles="['所有人员', '选择人员']"
-                    :data="guestpersonlistPath"
-                    :target-keys="targetKeys2"
-                    filterable
-                    :filter-method="filterMethod"
-                    :render-format="rander_guest"
-                    @on-change="handleChange2">
-                </Transfer>
+            <FormItem label="标签内容" prop="content">
+                <Input v-model="formItem.content" placeholder="请输入..." clearable></Input>
             </FormItem>
             <FormItem>
                 <Button type="primary" @click="handleSubmit('formItem')">保存</Button>
@@ -44,9 +49,35 @@
 export default {
     data () {
         return {
-            columns1: [
+            columns: [
                 {title: '序号', type: 'index', width: 100, align: 'center'}, // 单选
-                {title: '分组名称', key: 'group_name', width: 600, align: 'center'},
+                {title: '标签名称', key: 'labelname', align: 'center'},
+                { title: '操作',
+                    key: 'action',
+                    align: 'center',
+                    render: (h, params) => {
+                        return h('div', [
+                             h('Button', {
+                                props: {
+                                    type: 'primary',
+                                    size: 'small'
+                                },
+                                style: {
+                                    marginRight: '5px'
+                                },
+                                on: {
+                                    click: () => {
+                                        this.details(params.row);
+                                    }
+                                }
+                            }, '详情')
+                        ]);
+                    }
+                }
+            ],
+            columnsDetails:[
+                {title: '序号', type: 'index', width: 100, align: 'center'}, // 单选
+                {title: '标签内容', key: 'content', align: 'center'},
                 { title: '操作',
                     key: 'action',
                     align: 'center',
@@ -88,84 +119,56 @@ export default {
                                         placement: 'top'
                                     }
                                 }, '删除')
-                            ]),
-                            h('Dropdown', {
-                                props: {
-                                    transfer: true
-                                },
-                                on: {
-                                    'on-click': (type) => {
-                                        this.more(type, params.index);
-                                    }
-                                }
-                            })
+                            ])
                         ]);
                     }
                 }
             ],
-            modal1: false,
-            value: '',
+            labelModal: false,
+            value:'',
             INDEX: -1,
-            NEW_DATE: '',
             formItem: {
                 id: '',
-                group_name: '',
-                status: '',
-                meetid: '',
-                persons: '',
-                type: ''
+                content: '',
+                type:'',
+                kind:''
             },
-            addPerson: {
+            addLabel: {
                 id: '',
-                group_name: '',
-                status: '',
-                meetid: '',
-                persons: '',
-                type: ''
+                content: '',
+                type:'',
+                kind:''
             },
             ruleValidate: {
-                group_name: [
-                    { required: true, message: '分组名称不能为空', trigger: 'blur' }
+                content: [
+                    { required: true, message: '标签内容不能为空', trigger: 'blur' }
                 ]
             },
-            targetEle: '',
-            targetKeys2: []
+            detailsModal:false, // 详情页面打开状态
+            status:'', // 标签状态
+            valueDetails:'', 
         };
     },
     methods: {
-        rander_guest (item) {
-            if (item.name !== '' && item.name !== undefined) {
-                return item.name;
-            } else {
-                return item.nickname;
-            }
+        details (row) {
+            this.detailsModal = true;
+            this.status = row.type;
         },
         edit (row) {
             this.INDEX = row.id;
-            if (row.persons !== '' && row.persons !== undefined) {
-                this.targetEle = row.persons;
-                this.targetKeys2 = row.persons.split(',');
-            } else {
-                this.targetEle = '';
-                this.targetKeys2 = [];
-            }
             this.formItem = JSON.parse(JSON.stringify(row));
-            this.modal1 = true;
+            this.labelModal = true;
         },
-        createGroup (name) {
+        create (name) {
             this.INDEX = -1;
             this.$refs[name].resetFields();
-            this.addPerson = {
+            this.addLabel = {
                 id: '',
-                group_name: '',
-                status: '',
-                meetid: '',
-                persons: '',
-                type: ''
+                content: '',
+                type:'',
+                kind:''
             };
-            this.modal1 = true;
-            this.targetKeys2 = this.getTargetKeys(0, '');
-            this.targetEle = '';
+            this.labelModal = true;
         },
         handleSubmit (name) {
             let this_ = this;
@@ -173,13 +176,9 @@ export default {
                 if (valid) {
                     if (this_.INDEX !== -1) {
                         this_.formItem.id = this_.INDEX;
-                        this_.formItem.status = '2';
-                        this_.formItem.meetid = '';
-                        this_.formItem.persons = this_.targetEle;
-                        this_.formItem.type = '2';
-                        this.$ajax.post('group/edit',
-                            'group_name=' + this_.formItem.group_name + '&persons=' + this_.targetEle +
-                            '&status=' + '2' + '&id=' + this_.INDEX)
+                        this_.formItem.kind = '2';
+                        this.$ajax.post('personcontent/edit',
+                            'content=' + this_.formItem.content + '&id=' + this_.INDEX)
                             .then(function (response) {
                                 if (response.data.errorCode === 0) {
                                     this_.$Message.config({
@@ -188,22 +187,19 @@ export default {
                                         width: 200
                                     });
                                     this_.$Message.info('修改成功');
-                                    this_.$store.commit('groupslist', this_.formItem);
+                                    this_.$store.commit('personcontentlist', this_.formItem);
                                 } else {
                                     this_.$Message.info('修改失败');
                                 }
                             });
                     } else {
-                        this.$ajax.post('group/add',
-                            'group_name=' + this_.formItem.group_name + '&persons=' + this_.targetEle +
-                            '&status=' + '2')
+                        this.$ajax.post('personcontent/add',
+                            'content=' + this_.formItem.content + '&type=' + this_.status)
                             .then(function (response) {
-                                this_.addPerson.id = response.data.id;
-                                this_.addPerson.group_name = this_.formItem.group_name;
-                                this_.addPerson.status = '2';
-                                this_.addPerson.meetid = '';
-                                this_.addPerson.persons = this_.targetEle;
-                                this_.addPerson.type = '1';
+                                this_.addLabel.id = response.data.id;
+                                this_.addLabel.content = this_.formItem.content;
+                                this_.addLabel.type = this_.status;
+                                this_.addLabel.kind = '1';
                                 if (response.data.errorCode === 0) {
                                     this_.$Message.config({
                                         top: 50,
@@ -211,15 +207,15 @@ export default {
                                         width: 200
                                     });
                                     this_.$Message.info('添加成功');
-                                    this_.$store.commit('groupslist', this_.addPerson);
+                                    this_.$store.commit('personcontentlist', this_.addLabel);
                                 } else {
                                     this_.$Message.info('添加失败');
                                 }
                             });
                     }
-                    this.modal1 = false;
+                    this.labelModal = false;
                 } else {
-                    this.modal1 = true;
+                    this.labelModal = true;
                 }
             });
         },
@@ -229,43 +225,182 @@ export default {
         search (value) {
             this.value = value;
         },
-        getTargetKeys (a, result) {
-            if (a === 0) {
-                return this.guestpersonlistPath.filter(item => item.key);
-            } else if (a === 1) {
-                let ary = [];
-                for (let i = 0; i < result.length; i++) {
-                    ary.push(parseInt(result[i]));
-                }
-                return ary;
-            }
-        },
-        handleChange2 (newTargetKeys) {
-            let targetEle = '';
-            for (let i = 0; i < this.guestpersonlistPath.length; i++) {
-                // 目标列表数据
-                for (var j = 0; j < newTargetKeys.length; j++) {
-                    if (this.guestpersonlistPath[i].key === newTargetKeys[j]) {
-                        targetEle += this.guestpersonlistPath[i].key + ',';
-                    }
-                }
-            }
-            this.targetEle = targetEle.substring(0, targetEle.length - 1);
-            this.targetKeys2 = newTargetKeys;
-        },
-        filterMethod (data, query) {
-            if (data.name !== '' && data.name !== undefined) {
-                return data.name.indexOf(query) > -1;
-            } else {
-                return data.nickname.indexOf(query) > -1;
-            }
+        searchDetails (value) {
+            this.valueDetails = value;
         },
         delete (id) {
             let this_ = this;
             this_.formItem.id = id;
-            this_.formItem.type = '3';
-            this_.formItem.status = '2';
-            this.$ajax.post('group/delete',
+            this_.formItem.kind = '3';
+            let person = this.person;
+            let a = false;
+            for (let i = 0; i < person.length; i++) {
+               if(this.status == '1') {
+                   if (person[i].unitspecialty != null && person[i].unitspecialty != '' && person[i].unitspecialty != undefined) {
+                       let unitspecialty = person[i].unitspecialty.split(",")
+                       for(let j = 0; j < unitspecialty.length; j++) {
+                           if(unitspecialty[j] == id) {
+                               a = true;
+                           }
+                       }
+                   } 
+               } else if (this.status == '2') {
+                   if (person[i].unitproperties != null && person[i].unitproperties != '' && person[i].unitproperties != undefined) {
+                       let unitproperties = person[i].unitproperties.split(",")
+                       for(let j = 0; j < unitproperties.length; j++) {
+                           if(unitproperties[j] == id) {
+                               a = true;
+                           }
+                       }
+                   } 
+               } else if (this.status == '3') {
+                   if (person[i].industryfield != null && person[i].industryfield != '' && person[i].industryfield != undefined) {
+                       let industryfield = person[i].industryfield.split(",")
+                       for(let j = 0; j < industryfield.length; j++) {
+                           if(industryfield[j] == id) {
+                               a = true;
+                           }
+                       }
+                   } 
+               } else if (this.status == '4') {
+                   if (person[i].seminar != null && person[i].seminar != '' && person[i].seminar != undefined) {
+                       let seminar = person[i].seminar.split(",")
+                       for(let j = 0; j < seminar.length; j++) {
+                           if(seminar[j] == id) {
+                               a = true;
+                           }
+                       }
+                   } 
+               } else if (this.status == '5') {
+                   if (person[i].internationalproject != null && person[i].internationalproject != '' && person[i].internationalproject != undefined) {
+                       let internationalproject = person[i].internationalproject.split(",")
+                       for(let j = 0; j < internationalproject.length; j++) {
+                           if(internationalproject[j] == id) {
+                               a = true;
+                           }
+                       }
+                   } 
+               } else if (this.status == '6') {
+                   if (person[i].cooperativeproject != null && person[i].cooperativeproject != '' && person[i].cooperativeproject != undefined) {
+                       let cooperativeproject = person[i].cooperativeproject.split(",")
+                       for(let j = 0; j < cooperativeproject.length; j++) {
+                           if(cooperativeproject[j] == id) {
+                               a = true;
+                           }
+                       }
+                   } 
+               } else if (this.status == '8') {
+                   if (person[i].midtownrail != null && person[i].midtownrail != '' && person[i].midtownrail != undefined) {
+                       let midtownrail = person[i].midtownrail.split(",")
+                       for(let j = 0; j < midtownrail.length; j++) {
+                           if(midtownrail[j] == id) {
+                               a = true;
+                           }
+                       }
+                   } 
+               } else if (this.status == '9') {
+                   if (person[i].relatedstudy != null && person[i].relatedstudy != '' && person[i].relatedstudy != undefined) {
+                       let relatedstudy = person[i].relatedstudy.split(",")
+                       for(let j = 0; j < relatedstudy.length; j++) {
+                           if(relatedstudy[j] == id) {
+                               a = true;
+                           }
+                       }
+                   } 
+               } else if (this.status == '10') {
+                   if (person[i].ourmeeting != null && person[i].ourmeeting != '' && person[i].ourmeeting != undefined) {
+                       let ourmeeting = person[i].ourmeeting.split(",")
+                       for(let j = 0; j < ourmeeting.length; j++) {
+                           if(ourmeeting[j] == id) {
+                               a = true;
+                           }
+                       }
+                   } 
+               } else if (this.status == '11') {
+                   if (person[i].othermeeting != null && person[i].othermeeting != '' && person[i].othermeeting != undefined) {
+                       let othermeeting = person[i].othermeeting.split(",")
+                       for(let j = 0; j < othermeeting.length; j++) {
+                           if(othermeeting[j] == id) {
+                               a = true;
+                           }
+                       }
+                   } 
+               } else if (this.status == '12') {
+                   if (person[i].businesssources != null && person[i].businesssources != '' && person[i].businesssources != undefined) {
+                       let businesssources = person[i].businesssources.split(",")
+                       for(let j = 0; j < businesssources.length; j++) {
+                           if(businesssources[j] == id) {
+                               a = true;
+                           }
+                       }
+                   } 
+               } else if (this.status == '13') {
+                   if (person[i].countryregion != null && person[i].countryregion != '' && person[i].countryregion != undefined) {
+                       let countryregion = person[i].countryregion.split(",")
+                       for(let j = 0; j < countryregion.length; j++) {
+                           if(countryregion[j] == id) {
+                               a = true;
+                           }
+                       }
+                   } 
+               } else if (this.status == '14') {
+                   if (person[i].city != null && person[i].city != '' && person[i].city != undefined) {
+                       let city = person[i].city.split(",")
+                       for(let j = 0; j < city.length; j++) {
+                           if(city[j] == id) {
+                               a = true;
+                           }
+                       }
+                   } 
+               } else if (this.status == '15') {
+                   if (person[i].currentissue != null && person[i].currentissue != '' && person[i].currentissue != undefined) {
+                       let currentissue = person[i].currentissue.split(",")
+                       for(let j = 0; j < currentissue.length; j++) {
+                           if(currentissue[j] == id) {
+                               a = true;
+                           }
+                       }
+                   } 
+               } else if (this.status == '16') {
+                   if (person[i].magazine != null && person[i].magazine != '' && person[i].magazine != undefined) {
+                       let magazine = person[i].magazine.split(",")
+                       for(let j = 0; j < magazine.length; j++) {
+                           if(magazine[j] == id) {
+                               a = true;
+                           }
+                       }
+                   } 
+               } else if (this.status == '17') {
+                   if (person[i].distributionmode != null && person[i].distributionmode != '' && person[i].distributionmode != undefined) {
+                       let distributionmode = person[i].distributionmode.split(",")
+                       for(let j = 0; j < distributionmode.length; j++) {
+                           if(distributionmode[j] == id) {
+                               a = true;
+                           }
+                       }
+                   } 
+               } else if (this.status == '18') {
+                   if (person[i].salesman != null && person[i].salesman != '' && person[i].salesman != undefined) {
+                       let salesman = person[i].salesman.split(",")
+                       for(let j = 0; j < salesman.length; j++) {
+                           if(salesman[j] == id) {
+                               a = true;
+                           }
+                       }
+                   } 
+               }
+            }
+
+            if (a) {
+                this_.$Message.config({
+                    top: 50,
+                    duration: 3,
+                    width: 200
+                });
+                this_.$Message.info('有数据选中这个标签，不能删除');
+                return;
+            }
+            this.$ajax.post('personcontent/delete',
                 'id=' + id)
                 .then(function (response) {
                     if (response.data.errorCode === 0) {
@@ -275,7 +410,7 @@ export default {
                             width: 200
                         });
                         this_.$Message.info('删除成功');
-                        this_.$store.commit('groupslist', this_.formItem);
+                        this_.$store.commit('personcontentlist', this_.formItem);
                     } else {
                         this_.$Message.info('删除失败');
                     }
@@ -283,22 +418,39 @@ export default {
         }
     },
     computed: {
-        guestpersonlistPath: function () {
-            return this.$store.getters.guestpersonlistPath;
+        person: function () {
+           let guestperson = this.$store.getters.guestpersonlistPath;
+           let outsidegroupperson = this.$store.getters.outsidegrouppersonlistPath;
+           let person = guestperson.concat(outsidegroupperson);
+           return person;
         },
-        guestgroupPath: function () {
-            return this.$store.getters.guestgroupPath;
+        labelDetailsList: function () {
+            let labelDetails = this.$store.getters.personcontentPath;
+            let l = [];
+            for (let i = 0; i < labelDetails.length; i++) {
+                if (labelDetails[i].type == this.status) {
+                    if (labelDetails[i].content.indexOf(this.valueDetails) !== -1) {
+                        l.push(labelDetails[i]);
+                    } 
+                } 
+            }
+            if (l.length > 0) {
+                return l;
+            }
         },
-        data1: function () {
-            let group = this.guestgroupPath;
-            let groups = [];
-            for (let i = 0; i < group.length; i++) {
-                if (group[i].group_name.indexOf(this.value) !== -1) {
-                    groups.push(group[i]);
+        labelstatusPath: function () {
+            return this.$store.getters.labelstatusPath;
+        },
+        labelList: function () {
+            let label = this.labelstatusPath;
+            let labels = [];
+            for (let i = 0; i < label.length; i++) {
+                if (label[i].labelname.indexOf(this.value) !== -1) {
+                    labels.push(label[i]);
                 }
             }
-            if (groups.length > 0) {
-                return groups;
+            if (labels.length > 0) {
+                return labels;
             }
         }
     }

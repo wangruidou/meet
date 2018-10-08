@@ -150,6 +150,11 @@ export default {
                                     }, '推送信息'),
                                     h('DropdownItem', {
                                         props: {
+                                            name: 'push'
+                                        }
+                                    }, '推送具体信息'),
+                                    h('DropdownItem', {
+                                        props: {
                                             name: 'pushhistory'
                                         }
                                     }, '推送消息历史'),
@@ -237,6 +242,11 @@ export default {
             } else if (type === 'pushinformation') { // 推送信息
                 this.$router.push({
                     name: 'pushinformation',
+                    query: query
+                });
+            } else if (type === 'push') { // 推送具体信息
+                this.$router.push({
+                    name: 'push',
                     query: query
                 });
             } else if (type === 'groupparticipants') { // 参会人员分组

@@ -9,12 +9,13 @@ const meet = {
         guestgroupData: [],
         workgroupData: [],
         attendgroupData: [],
-        personcontentData: [],
+        personcontentData: [], //标签集合
         dispatchtaskData: [],
         pushinformationData: [],
         handlingmethodData: [],
         meetingpersonData: [],
-        logsData: [] //日志信息
+        logsData: [], //日志信息
+        labelstatusData: [] //标签状态
     },
     mutations: {
         // 显式的更改state里的数据
@@ -186,6 +187,9 @@ const meet = {
                                 }
                             }
                         }
+                    } else {
+                        state.grestpersonColumnsData = [];
+                        state.outsidegrouppersonColumnsData = [];
                     }
                 }
             } else {
@@ -258,6 +262,8 @@ const meet = {
                                 state.basicpersonColumnsData[i].verificationproblem = data.verificationproblem;
                             }
                         }
+                    } else {
+                        state.basicpersonColumnsData = [];
                     }
                 }
             } else {
@@ -348,7 +354,32 @@ const meet = {
         },
         personcontentlist (state, data) {
             if (data) {
-                state.personcontentData = data;
+                if (data.length > 0) {
+                    state.personcontentData = data;
+                } else {
+                    if (data.kind === '1') {
+                        state.personcontentData.push(data);
+                    } else if (data.kind === '2') {
+                        for (let i = 0; i < state.personcontentData.length; i++) {
+                            if (data.id === state.personcontentData[i].id) {
+                                state.personcontentData[i].content = data.content;
+                            }
+                        }
+                    } else if (data.kind === '3') {
+                        for (let i = 0; i < state.personcontentData.length; i++) {
+                            if (data.id === state.personcontentData[i].id) {
+                                state.personcontentData.splice(i, 1);
+                            }
+                        }
+                    }
+                }
+            } else {
+                alert(data);
+            }
+        },
+        labelstatuslist (state, data) {
+            if (data) {
+                state.labelstatusData = data;
             } else {
                 alert(data);
             }
@@ -445,17 +476,6 @@ const meet = {
                     state.meetingpersonData.length = 0;
                     state.meetingpersonData = data;
                 } else {
-                    // for (let i = 0; i < state.meetingpersonData.length; i++) {
-                    //     if (data.id === state.meetingpersonData[i].id) {
-                    //         state.meetingpersonData[i].speech = data.speech;
-                    //         state.meetingpersonData[i].gift = data.gift;
-                    //         state.meetingpersonData[i].ppt = data.ppt;
-                    //         state.meetingpersonData[i].signin = data.signin;
-                    //         state.meetingpersonData[i].meetid = data.meetid;
-                    //         state.meetingpersonData[i].name = data.name;
-                    //         state.meetingpersonData[i].phone = data.phone;
-                    //     }
-                    // }
                     if (data.type === '2') {
                         for (let i = 0; i < state.meetingpersonData.length; i++) {
                             if (data.id === state.meetingpersonData[i].id) {
@@ -507,6 +527,8 @@ const meet = {
                                 state.meetingpersonData[i].verificationproblem = data.verificationproblem;
                             }
                         }
+                    } else {
+                        state.meetingpersonData = [];
                     }
                 }
             } else {
@@ -572,7 +594,7 @@ const meet = {
             }
             return ret;
         },
-        personcontentPath: (state) => { // 字典表
+        personcontentPath: (state) => { // 字典表--标签内容集合
             return state.personcontentData;
         },
         dispatchtaskPath: (state) => { // 分派任务
@@ -593,6 +615,9 @@ const meet = {
         },
         logsPath: (state) => { // 处理方法
             return state.logsData;
+        },
+        labelstatusPath: (state) => { // 标签状态
+            return state.labelstatusData;
         }
     }
 

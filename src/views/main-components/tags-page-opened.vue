@@ -3,8 +3,8 @@
 </style>
 
 <template>
-    <div ref="scrollCon" @DOMMouseScroll="handlescroll" @mousewheel="handlescroll" class="tags-outer-scroll-con">
-        <div class="close-all-tag-con">
+    <div ref="scrollCon" @DOMMouseScroll="handlescroll" @mousewheel="handlescroll" class="tags-outer-scroll-con">       
+        <div class="close-all-tag-con">           
             <Dropdown transfer @on-click="handleTagsOption">
                 <Button size="small" type="primary">
                     标签选项
@@ -16,6 +16,12 @@
                 </DropdownMenu>
             </Dropdown>
         </div>
+        <div style="position:absolute;right:115px;height:100%;z-index:1;margin-top:5px;">
+            <Button type="primary" icon="ios-skipbackward" @click="left()"></Button>
+            <Button type="primary" icon="ios-skipforward" @click="right()"></Button>
+        </div>
+        
+        <!-- <div style="width:800px;overflow:hidden"> -->
         <div ref="scrollBody" class="tags-inner-scroll-body" :style="{left: tagBodyLeft + 'px'}">
             <transition-group name="taglist-moving-animation">
                 <Tag 
@@ -31,6 +37,7 @@
                 >{{ itemTitle(item) }}</Tag>
             </transition-group>
         </div>
+        <!-- </div> -->
     </div>
 </template>
 
@@ -44,6 +51,7 @@ export default {
         return {
             currentPageName: this.$route.name,
             tagBodyLeft: 0,
+            // tagBodyLeft_: 0,
             refsTag: [],
             tagsCount: 1
         };
@@ -57,6 +65,7 @@ export default {
             }
         }
     },
+    
     computed: {
         title () {
             return this.$store.state.app.currentTitle;
@@ -66,6 +75,12 @@ export default {
         }
     },
     methods: {
+        left(){
+            this.tagBodyLeft = this.tagBodyLeft -100;
+        },
+        right(){
+            this.tagBodyLeft = this.tagBodyLeft + 100;
+        },
         itemTitle (item) {
             if (typeof item.title === 'object') {
                 return this.$t(item.title.i18n);
@@ -149,13 +164,13 @@ export default {
         moveToView (tag) {
             if (tag.offsetLeft < -this.tagBodyLeft) {
                 // 标签在可视区域左侧
-                this.tagBodyLeft = -tag.offsetLeft + 10;
-            } else if (tag.offsetLeft + 10 > -this.tagBodyLeft && tag.offsetLeft + tag.offsetWidth < -this.tagBodyLeft + this.$refs.scrollCon.offsetWidth - 100) {
+                this.tagBodyLeft = -tag.offsetLeft + 100;
+            } else if (tag.offsetLeft + 100 > -this.tagBodyLeft && tag.offsetLeft + tag.offsetWidth < -this.tagBodyLeft + this.$refs.scrollCon.offsetWidth - 100) {
                 // 标签在可视区域
-                this.tagBodyLeft = Math.min(0, this.$refs.scrollCon.offsetWidth - 100 - tag.offsetWidth - tag.offsetLeft - 20);
+                this.tagBodyLeft = Math.min(0, this.$refs.scrollCon.offsetWidth - 100 - tag.offsetWidth - tag.offsetLeft - 20 - 75);
             } else {
                 // 标签在可视区域右侧
-                this.tagBodyLeft = -(tag.offsetLeft - (this.$refs.scrollCon.offsetWidth - 100 - tag.offsetWidth) + 20);
+                this.tagBodyLeft = -(tag.offsetLeft - (this.$refs.scrollCon.offsetWidth - 100 - tag.offsetWidth - 75) + 20);
             }
         }
     },

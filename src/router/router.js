@@ -64,6 +64,7 @@ export const otherRouter = {
         { path: 'assigningtask', title: '分派任务', name: 'assigningtask', component: () => import('@/views/meeting-page/AssigningTask.vue') },
         { path: 'releaseconference', title: '发布会议', name: 'releaseconference', component: () => import('@/views/meeting-page/ReleaseConference.vue') },
         { path: 'pushinformation', title: '推送信息', name: 'pushinformation', component: () => import('@/views/meeting-page/PushInformation.vue') },
+        { path: 'push', title: '推送具体信息', name: 'push', component: () => import('@/views/meeting-page/Push.vue') },
         { path: 'groupparticipants', title: '参会人员分组', name: 'groupparticipants', component: () => import('@/views/meeting-page/GroupParticipants.vue') },
         { path: 'staffmanagement', title: '参会人员管理', name: 'staffmanagement', component: () => import('@/views/meeting-page/StaffManagement.vue') },
         { path: 'workgroupmanage', title: '工作人员分组', name: 'workgroupmanage', component: () => import('@/views/meeting-page/WorkGroupManage.vue') },
@@ -236,16 +237,16 @@ export const appRouter = [
     //         { path: 'index', title: '错误页面', name: 'errorpage_index', component: () => import('@/views/error-page/error-page.vue') }
     //     ]
     // },
-    // {
-    //     path: '/meeting-page',
-    //     icon: 'person',
-    //     title: '基本人员管理',
-    //     name: 'basicperson',
-    //     component: Main,
-    //     children: [
-    //         { path: 'basicperson', title: '基本人员管理', name: 'basicperson_index',component: () => import('@/views/meeting-page/basicpersons.vue')}
-    //     ]
-    // },
+    {
+        path: '/meeting-page',
+        icon: 'person',
+        title: '基本人员管理',
+        name: 'basicperson',
+        component: Main,
+        children: [
+            { path: 'basicperson', title: '基本人员管理', name: 'basicperson_index',component: () => import('@/views/meeting-page/basicpersons.vue')}
+        ]
+    },
     {
         path: '/meeting-page',
         icon: 'person',
@@ -275,17 +276,7 @@ export const appRouter = [
         children: [
             { path: 'workpersonnelmanage', title: '工作人员管理', name: 'workpersonnelmanage_index', component: () => import('@/views/meeting-page/WorkPersonnelManage.vue') }
         ]
-    }, 
-    // {
-    //     path: '/meeting-page',
-    //     icon: 'person-stalker',
-    //     title: '工作人员分组',
-    //     name: 'workgroupmanage',
-    //     component: Main,
-    //     children: [
-    //         { path: 'workgroupmanage', title: '工作分组管理', name: 'workgroupmanage_index', component: () => import('@/views/meeting-page/WorkGroupManage.vue') }
-    //     ]
-    // },
+    },
     {
         path: '/meeting-page',
         icon: 'person',
@@ -296,16 +287,16 @@ export const appRouter = [
             { path: 'qrCode', title: '人员种类二维码', name: 'qrCode_index', component: () => import('@/views/meeting-page/QRCode.vue') }
         ]
     },
-    // {
-    //     path: '/meeting-page',
-    //     icon: 'person',
-    //     title: '标签种类',
-    //     name: 'labelType',
-    //     component: Main,
-    //     children: [
-    //         { path: 'labelType', title: '标签种类', name: 'labelType_index', component: () => import('@/views/meeting-page/LabelType.vue') }
-    //     ]
-    // }
+    {
+        path: '/meeting-page',
+        icon: 'person',
+        title: '标签种类管理',
+        name: 'labelType',
+        component: Main,
+        children: [
+            { path: 'labelType', title: '标签种类管理', name: 'labelType_index', component: () => import('@/views/meeting-page/LabelType.vue') }
+        ]
+    }
 ];
 
 // 所有上面定义的路由都要写在下面的routers里
