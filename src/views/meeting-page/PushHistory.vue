@@ -49,6 +49,9 @@ export default {
         meetingpersonPath: function () {
             return this.$store.getters.meetingpersonPath;
         },
+        outsidegrouppersonlistPath: function () {
+            return this.$store.getters.outsidegrouppersonlistPath;
+        },
         logsPath: function () {
             return this.$store.getters.logsPath;
         },
@@ -69,6 +72,7 @@ export default {
         logs_data: function () {
             let logs = this.logsPath;
             let meetingperson = this.meetingpersonPath;
+            let outsidegroupperson = this.outsidegrouppersonlistPath;
             let log_data = [];
             let group = this.guestgroupPath.concat(this.workgroupPath,this.attendgroupPath);
             for (let i = 0; i < logs.length; i++) {
@@ -78,10 +82,21 @@ export default {
                         if (logs[i].groups !== '') {
                             let groups = logs[i].groups.split(',');
                             for (let j = 0; j < groups.length; j++) {
-                                if (logs[i].log_type == "推送具体信息") {
+                                if (logs[i].log_type == "推送信息(参会人)") {
                                     for (let z = 0; z < meetingperson.length; z++) {
                                         if (meetingperson[z].openid === groups[j]) {
                                             b += meetingperson[z].name + ',';
+                                        }
+                                    }
+                                } else if (logs[i].log_type == "推送信息(工作人)") {
+                                    for (let z = 0; z < outsidegroupperson.length; z++) {
+                                        if (outsidegroupperson[z].openid === groups[j]) {
+                                            if (outsidegroupperson[z].name !== '' && outsidegroupperson[z].name !== undefined) {
+                                                b += outsidegroupperson[z].name + ',';
+                                            } else {
+                                                b += outsidegroupperson[z].nickname + ',';
+                                            }
+                                            
                                         }
                                     }
                                 } else {

@@ -99,6 +99,20 @@ export default {
                                     }
                                 }, '删除')
                             ]),
+                            // h('Button', {
+                            //     props: {
+                            //         type: 'primary',
+                            //         size: 'small'
+                            //     },
+                            //     style: {
+                            //         marginRight: '5px'
+                            //     },
+                            //     on: {
+                            //         click: () => {
+                            //             this.details(params.row);
+                            //         }
+                            //     }
+                            // }, '详情'),
                             h('Dropdown', {
                                 props: {
                                     transfer: true
@@ -152,7 +166,12 @@ export default {
                                         props: {
                                             name: 'push'
                                         }
-                                    }, '推送具体信息'),
+                                    }, '推送信息(参会人)'),
+                                    h('DropdownItem', {
+                                        props: {
+                                            name: 'pushworker'
+                                        }
+                                    }, '推送信息(工作人)'),
                                     h('DropdownItem', {
                                         props: {
                                             name: 'pushhistory'
@@ -224,6 +243,16 @@ export default {
             this.formItem = JSON.parse(JSON.stringify(row));
             this.modal1 = true;
         },
+        details (param) {
+            let id = param.id;
+            let sceneid = param.sceneid + '';// 二维码
+            let meeting = param.meet_name;
+            let query = {meeting: meeting, sceneid: sceneid, param: param};
+            this.$router.push({
+                name: 'details',
+                query: query
+            });
+        },
         more (type, param) { // 更多
             let id = param.id;
             let sceneid = param.sceneid + '';// 二维码
@@ -244,9 +273,14 @@ export default {
                     name: 'pushinformation',
                     query: query
                 });
-            } else if (type === 'push') { // 推送具体信息
+            } else if (type === 'push') { // 推送信息(参会人)
                 this.$router.push({
                     name: 'push',
+                    query: query
+                });
+            }  else if (type === 'pushworker') { // 推送信息(工作人)
+                this.$router.push({
+                    name: 'pushworker',
                     query: query
                 });
             } else if (type === 'groupparticipants') { // 参会人员分组

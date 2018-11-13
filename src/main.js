@@ -10,11 +10,11 @@ import VueI18n from 'vue-i18n';
 import util from './libs/util';
 import Axios from 'axios';
 
-Axios.defaults.baseURL = 'http://47.92.2.135/meet/';
+Axios.defaults.baseURL = 'http://127.0.0.1/meet/';
 
 Vue.prototype.$ajax = Axios;
 
-Vue.prototype.url = 'http://47.92.2.135';
+Vue.prototype.url = 'http://127.0.0.1';
 
 Vue.use(VueI18n);
 Vue.use(iView);

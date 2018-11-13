@@ -4,7 +4,7 @@
         <Card>
             <p slot="title" style="height:30px">
                 <Icon type="compose"></Icon>
-                推送信息(参会人)详情
+                推送信息(工作人)详情
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 会议名称：{{this.$route.query.meeting}}
             </p>
@@ -16,7 +16,7 @@
                 <td>
                     <Transfer
                         :titles="['所有人员', '选择人员']"
-                        :data="person"
+                        :data="outsidegrouppersonlistPath"
                         :target-keys="targetKeys"
                         filterable
                         :filter-method="filterMethod"
@@ -51,11 +51,11 @@ export default {
         },
         handleChange (newTargetKeys) {
             let targetEle = '';
-            for (let i = 0; i < this.person.length; i++) {
+            for (let i = 0; i < this.outsidegrouppersonlistPath.length; i++) {
                 // 目标列表数据
                 for (var j = 0; j < newTargetKeys.length; j++) {
-                    if (this.person[i].key === newTargetKeys[j]) {
-                        targetEle += this.person[i].key + ',';
+                    if (this.outsidegrouppersonlistPath[i].key === newTargetKeys[j]) {
+                        targetEle += this.outsidegrouppersonlistPath[i].key + ',';
                     }
                 }
             }
@@ -85,7 +85,7 @@ export default {
                 return false;
             };
             let this_ = this;
-            this.$ajax.post('sendinfo/push',
+            this.$ajax.post('sendinfo/pushWorker',
                 'content=' + content + '&persons=' + this_.targetEle + '&meetid=' + this_.$route.query.sceneid)
                 .then(function (response) {
                     if (response.data.errorCode === 0) {
@@ -102,17 +102,8 @@ export default {
         }
     },
     computed: {
-        person: function () {
-            let person = this.$store.getters.meetingpersonPath;
-            let person1 = [];
-            for (let i = 0; i < person.length; i++) {
-                if (person[i].meetid !== '' && person[i].meetid !== undefined) {
-                    if (person[i].meetid === this.$route.query.sceneid) {
-                        person1.push(person[i]);
-                    }
-                }
-            }
-            return person1;
+        outsidegrouppersonlistPath: function () {
+            return this.$store.getters.outsidegrouppersonlistPath;
         }
     }
 };

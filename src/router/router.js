@@ -64,11 +64,13 @@ export const otherRouter = {
         { path: 'assigningtask', title: '分派任务', name: 'assigningtask', component: () => import('@/views/meeting-page/AssigningTask.vue') },
         { path: 'releaseconference', title: '发布会议', name: 'releaseconference', component: () => import('@/views/meeting-page/ReleaseConference.vue') },
         { path: 'pushinformation', title: '推送信息', name: 'pushinformation', component: () => import('@/views/meeting-page/PushInformation.vue') },
-        { path: 'push', title: '推送具体信息', name: 'push', component: () => import('@/views/meeting-page/Push.vue') },
+        { path: 'push', title: '推送信息(参会人)', name: 'push', component: () => import('@/views/meeting-page/Push.vue') },
+        { path: 'pushworker', title: '推送信息(工作人)', name: 'pushworker', component: () => import('@/views/meeting-page/PushWorker.vue') },
         { path: 'groupparticipants', title: '参会人员分组', name: 'groupparticipants', component: () => import('@/views/meeting-page/GroupParticipants.vue') },
         { path: 'staffmanagement', title: '参会人员管理', name: 'staffmanagement', component: () => import('@/views/meeting-page/StaffManagement.vue') },
         { path: 'workgroupmanage', title: '工作人员分组', name: 'workgroupmanage', component: () => import('@/views/meeting-page/WorkGroupManage.vue') },
-        { path: 'pushhistory', title: '推送消息历史', name: 'pushhistory', component: () => import('@/views/meeting-page/PushHistory.vue') }
+        { path: 'pushhistory', title: '推送消息历史', name: 'pushhistory', component: () => import('@/views/meeting-page/PushHistory.vue') },
+        { path: 'details', title: '会议内容详情', name: 'details', component: () => import('@/views/meeting-page/Details.vue') }
     ]
 };
 

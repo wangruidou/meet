@@ -379,7 +379,15 @@ const meet = {
         },
         labelstatuslist (state, data) {
             if (data) {
-                state.labelstatusData = data;
+                if (data.length > 0) {
+                    state.labelstatusData = data;
+                } else {
+                    for (let i = 0; i < state.labelstatusData.length; i++) {
+                        if (data.id === state.labelstatusData[i].id) {
+                            state.labelstatusData[i].labelname = data.labelname;
+                        }
+                    }
+                }
             } else {
                 alert(data);
             }

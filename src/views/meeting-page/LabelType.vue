@@ -42,6 +42,18 @@
             </FormItem>
         </Form>
     </Modal>
+
+    <Modal v-model="labelStatusModal" title="标签" width="600">
+        <Form ref="formItemLabel" :model="formItemLabel" :rules="ruleValidateLabel" :label-width="100">
+            <FormItem label="标签" prop="labelname">
+                <Input v-model="formItemLabel.labelname" placeholder="请输入..." clearable></Input>
+            </FormItem>
+            <FormItem>
+                <Button type="primary" @click="handleSubmitLabel('formItemLabel')">保存</Button>
+                <Button type="ghost" @click="handleResetLabel('formItemLabel')" style="margin-left: 8px">重置</Button>
+            </FormItem>
+        </Form>
+    </Modal>
   </div>
 </template>
 
@@ -57,7 +69,21 @@ export default {
                     align: 'center',
                     render: (h, params) => {
                         return h('div', [
-                             h('Button', {
+                            h('Button', {
+                                props: {
+                                    type: 'primary',
+                                    size: 'small'
+                                },
+                                style: {
+                                    marginRight: '5px'
+                                },
+                                on: {
+                                    click: () => {
+                                        this.editLabelStatus(params.row);
+                                    }
+                                }
+                            }, '修改'),
+                            h('Button', {
                                 props: {
                                     type: 'primary',
                                     size: 'small'
@@ -125,8 +151,10 @@ export default {
                 }
             ],
             labelModal: false,
+            labelStatusModal: false,
             value:'',
             INDEX: -1,
+            LabelINDEX: -1,
             formItem: {
                 id: '',
                 content: '',
@@ -139,9 +167,19 @@ export default {
                 type:'',
                 kind:''
             },
+            formItemLabel: {
+                id: '',
+                labelname: '',
+                type:''
+            },
             ruleValidate: {
                 content: [
                     { required: true, message: '标签内容不能为空', trigger: 'blur' }
+                ]
+            },
+            ruleValidateLabel: {
+                labelname: [
+                    { required: true, message: '标签不能为空', trigger: 'blur' }
                 ]
             },
             detailsModal:false, // 详情页面打开状态
@@ -158,6 +196,11 @@ export default {
             this.INDEX = row.id;
             this.formItem = JSON.parse(JSON.stringify(row));
             this.labelModal = true;
+        },
+        editLabelStatus(row) {
+            this.LabelINDEX = row.id;
+            this.formItemLabel = JSON.parse(JSON.stringify(row));
+            this.labelStatusModal = true;
         },
         create (name) {
             this.INDEX = -1;
@@ -220,6 +263,37 @@ export default {
             });
         },
         handleReset (name) {
+            this.$refs[name].resetFields();
+        },
+        handleSubmitLabel (name) {
+            let this_ = this;
+            this.$refs[name].validate((valid) => {
+                if (valid) {
+                    if (this_.LabelINDEX !== -1) {
+                        this_.formItemLabel.id = this_.LabelINDEX;
+                        this.$ajax.post('labelstatus/edit',
+                            'labelname=' + this_.formItemLabel.labelname + '&id=' + this_.LabelINDEX)
+                            .then(function (response) {
+                                if (response.data.errorCode === 0) {
+                                    this_.$Message.config({
+                                        top: 50,
+                                        duration: 3,
+                                        width: 200
+                                    });
+                                    this_.$Message.info('修改成功');
+                                    this_.$store.commit('labelstatuslist', this_.formItemLabel);
+                                } else {
+                                    this_.$Message.info('修改失败');
+                                }
+                            });
+                    }
+                    this.labelStatusModal = false;
+                } else {
+                    this.labelStatusModal = true;
+                }
+            });
+        },
+        handleResetLabel (name) {
             this.$refs[name].resetFields();
         },
         search (value) {
@@ -384,6 +458,15 @@ export default {
                        let salesman = person[i].salesman.split(",")
                        for(let j = 0; j < salesman.length; j++) {
                            if(salesman[j] == id) {
+                               a = true;
+                           }
+                       }
+                   } 
+               } else if (this.status == '19') {
+                   if (person[i].ourmeeting2 != null && person[i].ourmeeting2 != '' && person[i].ourmeeting2 != undefined) {
+                       let ourmeeting2 = person[i].ourmeeting2.split(",")
+                       for(let j = 0; j < ourmeeting2.length; j++) {
+                           if(ourmeeting2[j] == id) {
                                a = true;
                            }
                        }

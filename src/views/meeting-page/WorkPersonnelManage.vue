@@ -31,19 +31,21 @@
         <div slot="footer"></div>
     </Modal>
 
-    <Modal v-model="query" title="详细标签查询" width="60%">
+    <Modal v-model="query" title="详细标签查询" width="70%">
         <Form :label-width="110">
             <tr>
                 <td>
-                    <FormItem label="单位专业">
-                        <Select v-model="unitspecialty_query" multiple style="width:300px">
+                    <FormItem>
+                        <span style="margin-left:-50px;">{{labelstatusPath.unitspecialty}}</span>
+                        <Select style="width:300px;margin-left:10px;float:right;" v-model="unitspecialty_query" multiple>
                             <Option v-for="item in personcontent" v-if="item.type==1" :value="item.id" :key="item.id">{{ item.content }}</Option>
                         </Select>
                     </FormItem>
                 </td>
                 <td>
-                    <FormItem label="单位性质">
-                        <Select v-model="unitproperties_query" multiple style="width:300px">
+                    <FormItem>
+                        <span>{{labelstatusPath.unitproperties}}</span>
+                        <Select style="width:300px;margin-left:10px;float:right;" v-model="unitproperties_query" multiple>
                             <Option v-for="item in personcontent" v-if="item.type==2" :value="item.id" :key="item.id">{{ item.content }}</Option>
                         </Select>
                     </FormItem>
@@ -51,15 +53,17 @@
             </tr>
             <tr>
                 <td>
-                    <FormItem label="行业领域">
-                        <Select v-model="industryfield_query" multiple style="width:300px">
+                    <FormItem>
+                        <span style="margin-left:-50px;">{{labelstatusPath.industryfield}}</span>
+                        <Select style="width:300px;margin-left:10px;float:right;" v-model="industryfield_query" multiple>
                             <Option v-for="item in personcontent" v-if="item.type==3" :value="item.id" :key="item.id">{{ item.content }}</Option>
                         </Select>
                     </FormItem>
                 </td>
                 <td>
-                    <FormItem label="研究会-职务">
-                        <Select v-model="seminar_query" multiple style="width:300px">
+                    <FormItem>
+                        <span>{{labelstatusPath.seminar}}</span>
+                        <Select style="width:300px;margin-left:10px;float:right;" v-model="seminar_query" multiple>
                             <Option v-for="item in personcontent" v-if="item.type==4" :value="item.id" :key="item.id">{{ item.content }}</Option>
                         </Select>
                     </FormItem>
@@ -67,15 +71,17 @@
             </tr>
             <tr>
                 <td>
-                    <FormItem label="国际项目">
-                        <Select v-model="internationalproject_query" multiple style="width:300px">
+                    <FormItem>
+                        <span style="margin-left:-50px;">{{labelstatusPath.internationalproject}}</span>
+                        <Select style="width:300px;margin-left:10px;float:right;" v-model="internationalproject_query" multiple>
                             <Option v-for="item in personcontent" v-if="item.type==5" :value="item.id" :key="item.id">{{ item.content }}</Option>
                         </Select>
                     </FormItem>
                 </td>
                 <td>
-                    <FormItem label="合作项目">
-                        <Select v-model="cooperativeproject_query" multiple style="width:300px">
+                    <FormItem>
+                        <span>{{labelstatusPath.cooperativeproject}}</span>
+                        <Select style="width:300px;margin-left:10px;float:right;" v-model="cooperativeproject_query" multiple>
                             <Option v-for="item in personcontent" v-if="item.type==6" :value="item.id" :key="item.id">{{ item.content }}</Option>
                         </Select>
                     </FormItem>
@@ -83,15 +89,17 @@
             </tr>
             <tr>
                 <td>
-                    <FormItem label="中城轨-成员">
-                        <Select v-model="midtownrail_query" multiple style="width:300px">
+                    <FormItem>
+                        <span style="margin-left:-50px;">{{labelstatusPath.midtownrail}}</span>
+                        <Select style="width:300px;margin-left:10px;float:right;" v-model="midtownrail_query" multiple>
                             <Option v-for="item in personcontent" v-if="item.type==8" :value="item.id" :key="item.id">{{ item.content }}</Option>
                         </Select>
                     </FormItem>
                 </td>
                 <td>
-                    <FormItem label="相关学协会">
-                        <Select v-model="relatedstudy_query" multiple style="width:300px">
+                    <FormItem>
+                        <span>{{labelstatusPath.relatedstudy}}</span>
+                        <Select style="width:300px;margin-left:10px;float:right;" v-model="relatedstudy_query" multiple>
                             <Option v-for="item in personcontent" v-if="item.type==9" :value="item.id" :key="item.id">{{ item.content }}</Option>
                         </Select>
                     </FormItem>
@@ -99,15 +107,17 @@
             </tr>
             <tr>
                 <td>
-                    <FormItem label="我们会议">
-                        <Select v-model="ourmeeting_query" multiple style="width:300px">
+                    <FormItem>
+                        <span style="margin-left:-50px;">{{labelstatusPath.ourmeeting}}</span>
+                        <Select style="width:300px;margin-left:10px;float:right;" v-model="ourmeeting_query" multiple>
                             <Option v-for="item in personcontent" v-if="item.type==10" :value="item.id" :key="item.id">{{ item.content }}</Option>
                         </Select>
                     </FormItem>
                 </td>
                 <td>
-                    <FormItem label="其他会议">
-                        <Select v-model="othermeeting_query" multiple style="width:300px">
+                    <FormItem>
+                        <span>{{labelstatusPath.othermeeting}}</span>
+                        <Select style="width:300px;margin-left:10px;float:right;" v-model="othermeeting_query" multiple>
                             <Option v-for="item in personcontent" v-if="item.type==11" :value="item.id" :key="item.id">{{ item.content }}</Option>
                         </Select>
                     </FormItem>
@@ -115,15 +125,17 @@
             </tr>
             <tr>
                 <td>
-                    <FormItem label="业务来源">
-                        <Select v-model="businesssources_query" multiple style="width:300px">
+                    <FormItem>
+                        <span style="margin-left:-50px;">{{labelstatusPath.businesssources}}</span>
+                        <Select style="width:300px;margin-left:10px;float:right;" v-model="businesssources_query" multiple>
                             <Option v-for="item in personcontent" v-if="item.type==12" :value="item.id" :key="item.id">{{ item.content }}</Option>
                         </Select>
                     </FormItem>
                 </td>
                 <td>
-                    <FormItem label="国家/地区">
-                        <Select v-model="countryregion_query" multiple style="width:300px">
+                    <FormItem>
+                        <span>{{labelstatusPath.countryregion}}</span>
+                        <Select style="width:300px;margin-left:10px;float:right;" v-model="countryregion_query" multiple>
                             <Option v-for="item in personcontent" v-if="item.type==13" :value="item.id" :key="item.id">{{ item.content }}</Option>
                         </Select>
                     </FormItem>
@@ -131,15 +143,17 @@
             </tr>
             <tr>
                 <td>
-                    <FormItem label="城市">
-                        <Select v-model="city_query" multiple style="width:300px">
+                    <FormItem>
+                        <span style="margin-left:-50px;">{{labelstatusPath.city}}</span>
+                        <Select style="width:300px;margin-left:10px;float:right;" v-model="city_query" multiple>
                             <Option v-for="item in personcontent" v-if="item.type==14" :value="item.id" :key="item.id">{{ item.content }}</Option>
                         </Select>
                     </FormItem>
                 </td>
                 <td>
-                    <FormItem label="当期发行">
-                        <Select v-model="currentissue_query" multiple style="width:300px" @on-change="changecurrent(currentissue)">
+                    <FormItem>
+                        <span>{{labelstatusPath.currentissue}}</span>
+                        <Select style="width:300px;margin-left:10px;float:right;" v-model="currentissue_query" multiple @on-change="changecurrent(currentissue)">
                             <Option v-for="item in personcontent" v-if="item.type==15" :value="item.id" :key="item.id">{{ item.content }}</Option>
                         </Select>
                     </FormItem>
@@ -147,15 +161,17 @@
             </tr>
             <tr>
                 <td>
-                    <FormItem label="是否寄杂志">
-                        <Select v-model="magazine_query" multiple style="width:300px">
+                    <FormItem>
+                        <span style="margin-left:-50px;">{{labelstatusPath.magazine}}</span>
+                        <Select style="width:300px;margin-left:10px;float:right;" v-model="magazine_query" multiple>
                             <Option v-for="item in personcontent" v-if="item.type==16" :value="item.id" :key="item.id">{{ item.content }}</Option>
                         </Select>
                     </FormItem>
                 </td>
                 <td>
-                    <FormItem label="发行方式">
-                        <Select v-model="distributionmode_query" multiple style="width:300px">
+                    <FormItem>
+                        <span>{{labelstatusPath.distributionmode}}</span>
+                        <Select style="width:300px;margin-left:10px;float:right;" v-model="distributionmode_query" multiple>
                             <Option v-for="item in personcontent" v-if="item.type==17" :value="item.id" :key="item.id">{{ item.content }}</Option>
                         </Select>
                     </FormItem>
@@ -163,46 +179,71 @@
             </tr>
             <tr>
                 <td>
-                    <FormItem label="业务员">
-                        <Select v-model="salesman_query" multiple style="width:300px">
+                    <FormItem>
+                        <span style="margin-left:-50px;">{{labelstatusPath.salesman}}</span>
+                        <Select style="width:300px;margin-left:10px;float:right;" v-model="salesman_query" multiple>
                             <Option v-for="item in personcontent" v-if="item.type==18" :value="item.id" :key="item.id">{{ item.content }}</Option>
+                        </Select>
+                    </FormItem>
+                </td>
+                <td>
+                    <FormItem>
+                        <span>{{labelstatusPath.ourmeeting2}}</span>
+                        <Select style="width:300px;margin-left:10px;float:right;" v-model="ourmeeting2_query" multiple>
+                            <Option v-for="item in personcontent" v-if="item.type==19" :value="item.id" :key="item.id">{{ item.content }}</Option>
                         </Select>
                     </FormItem>
                 </td>
             </tr>
             <FormItem>
-                <Button type="primary" @click="savePerson2()" style="margin-left:200px;">查询</Button>
+                <Button type="primary" @click="savePerson2()" style="margin-left:350px;">查询</Button>
                 <Button type="ghost" @click="resetPerson_query()" style="margin-left: 8px">重置</Button>
             </FormItem>
         </Form>
         <div slot="footer"></div>
     </Modal>
    
-   <Modal v-model="detail" title="人员详细信息" width="60%" height="50%">
+   <Modal v-model="detail" title="人员详细信息" width="70%" height="50%">
         <Form ref="personValidate1" :model="personValidate" :label-width="110">
             <tr>
                 <td>
-                    <FormItem label="移动电话" prop="telephone"><Input v-model="personValidate.telephone" placeholder="请输入移动电话..." style="width:300px;"></Input></FormItem>
+                    <FormItem prop="telephone">
+                        <span style="margin-left:-50px;">移动电话</span>
+                        <Input style="width:300px;margin-left:10px;float:right;" v-model="personValidate.telephone" placeholder="请输入移动电话..."></Input>
+                    </FormItem>
                 </td>
                 <td>
-                    <FormItem label="传真" prop="fax"><Input v-model="personValidate.fax" placeholder="请输入传真..." style="width:300px;"></Input></FormItem>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <FormItem label="电子邮件" prop="email"><Input v-model="personValidate.email" placeholder="请输入电子邮件..." style="width:300px;"></Input></FormItem>
-                </td>
-                <td>
-                    <FormItem label="地址" prop="location"><Input v-model="personValidate.location" placeholder="请输入地址..." style="width:300px;"></Input></FormItem>
+                    <FormItem prop="fax">
+                        <span>传真</span>
+                        <Input style="width:300px;margin-left:10px;float:right;" v-model="personValidate.fax" placeholder="请输入传真..."></Input>
+                    </FormItem>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <FormItem label="邮政编码" prop="postcode"><Input v-model="personValidate.postcode" placeholder="请输入邮政编码..." style="width:300px;"></Input></FormItem>
+                    <FormItem prop="email">
+                        <span style="margin-left:-50px;">电子邮件</span>
+                        <Input style="width:300px;margin-left:10px;float:right;" v-model="personValidate.email" placeholder="请输入电子邮件..."></Input>
+                    </FormItem>
                 </td>
                 <td>
-                    <FormItem label="研究会-职务" prop="seminar">
-                        <Select v-model="seminar" multiple style="width:300px">
+                    <FormItem prop="location">
+                        <span>地址</span>
+                        <Input style="width:300px;margin-left:10px;float:right;" v-model="personValidate.location" placeholder="请输入地址..."></Input>
+                    </FormItem>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <FormItem prop="postcode">
+                        <span style="margin-left:-50px;">邮政编码</span>
+                        <Input style="width:300px;margin-left:10px;float:right;" v-model="personValidate.postcode" placeholder="请输入邮政编码..."></Input>
+                    </FormItem>
+                </td>
+                <td>
+                    <FormItem prop="seminar">
+                        <span>{{labelstatusPath.seminar}}</span>
+                        <Select style="width:300px;margin-left:10px;float:right;" v-model="seminar" multiple >
                             <Option v-for="item in personcontent" v-if="item.type==4" :value="item.id" :key="item.id">{{ item.content }}</Option>
                         </Select>
                     </FormItem>
@@ -210,15 +251,17 @@
             </tr>
             <tr>
                 <td>
-                    <FormItem label="单位性质" prop="unitproperties">
-                        <Select v-model="unitproperties" multiple style="width:300px">
+                    <FormItem prop="unitproperties">
+                        <span style="margin-left:-50px;">{{labelstatusPath.unitproperties}}</span>
+                        <Select style="width:300px;margin-left:10px;float:right;" v-model="unitproperties" multiple>
                             <Option v-for="item in personcontent" v-if="item.type==2" :value="item.id" :key="item.id">{{ item.content }}</Option>
                         </Select>
                     </FormItem>
                 </td>
                 <td>
-                    <FormItem label="单位专业" prop="unitspecialty">
-                        <Select v-model="unitspecialty" multiple style="width:300px">
+                    <FormItem prop="unitspecialty">
+                        <span>{{labelstatusPath.unitspecialty}}</span>
+                        <Select style="width:300px;margin-left:10px;float:right;" v-model="unitspecialty" multiple>
                             <Option v-for="item in personcontent" v-if="item.type==1" :value="item.id" :key="item.id">{{ item.content }}</Option>
                         </Select>
                     </FormItem>
@@ -226,15 +269,17 @@
             </tr>
             <tr>
                 <td>
-                    <FormItem label="行业领域" prop="industryfield">
-                        <Select v-model="industryfield" multiple style="width:300px">
+                    <FormItem prop="industryfield">
+                        <span style="margin-left:-50px;">{{labelstatusPath.industryfield}}</span>
+                        <Select style="width:300px;margin-left:10px;float:right;" v-model="industryfield" multiple>
                             <Option v-for="item in personcontent" v-if="item.type==3" :value="item.id" :key="item.id">{{ item.content }}</Option>
                         </Select>
                     </FormItem>
                 </td>
                 <td>
-                    <FormItem label="国际项目" prop="internationalproject">
-                        <Select v-model="internationalproject" multiple style="width:300px">
+                    <FormItem prop="internationalproject">
+                        <span>{{labelstatusPath.internationalproject}}</span>
+                        <Select style="width:300px;margin-left:10px;float:right;" v-model="internationalproject" multiple>
                             <Option v-for="item in personcontent" v-if="item.type==5" :value="item.id" :key="item.id">{{ item.content }}</Option>
                         </Select>
                     </FormItem>
@@ -242,15 +287,17 @@
             </tr>
             <tr>
                 <td>
-                    <FormItem label="中城轨-成员" prop="midtownrail">
-                        <Select v-model="midtownrail" multiple style="width:300px">
+                    <FormItem prop="midtownrail">
+                        <span style="margin-left:-50px;">{{labelstatusPath.midtownrail}}</span>
+                        <Select style="width:300px;margin-left:10px;float:right;" v-model="midtownrail" multiple>
                             <Option v-for="item in personcontent" v-if="item.type==8" :value="item.id" :key="item.id">{{ item.content }}</Option>
                         </Select>
                     </FormItem>
                 </td>
                 <td>
-                    <FormItem label="相关学协会" prop="relatedstudy">
-                        <Select v-model="relatedstudy" multiple style="width:300px">
+                    <FormItem prop="relatedstudy">
+                        <span>{{labelstatusPath.relatedstudy}}</span>
+                        <Select style="width:300px;margin-left:10px;float:right;" v-model="relatedstudy" multiple>
                             <Option v-for="item in personcontent" v-if="item.type==9" :value="item.id" :key="item.id">{{ item.content }}</Option>
                         </Select>
                     </FormItem>
@@ -258,15 +305,17 @@
             </tr>
             <tr>
                 <td>
-                    <FormItem label="合作项目" prop="cooperativeproject">
-                        <Select v-model="cooperativeproject" multiple style="width:300px">
+                    <FormItem prop="cooperativeproject">
+                        <span style="margin-left:-50px;">{{labelstatusPath.cooperativeproject}}</span>
+                        <Select style="width:300px;margin-left:10px;float:right;" v-model="cooperativeproject" multiple>
                             <Option v-for="item in personcontent" v-if="item.type==6" :value="item.id" :key="item.id">{{ item.content }}</Option>
                         </Select>
                     </FormItem>
                 </td>
                 <td>
-                    <FormItem label="我们会议" prop="ourmeeting">
-                        <Select v-model="ourmeeting" multiple style="width:300px">
+                    <FormItem prop="ourmeeting">
+                        <span>{{labelstatusPath.ourmeeting}}</span>
+                        <Select style="width:300px;margin-left:10px;float:right;" v-model="ourmeeting" multiple>
                             <Option v-for="item in personcontent" v-if="item.type==10" :value="item.id" :key="item.id">{{ item.content }}</Option>
                         </Select>
                     </FormItem>
@@ -274,15 +323,17 @@
             </tr>
             <tr>
                 <td>
-                    <FormItem label="我们会议-2" prop="ourmeeting2">
-                        <Select v-model="ourmeeting2" multiple style="width:300px">
-                            <Option v-for="item in personcontent" v-if="item.type==10" :value="item.id" :key="item.id">{{ item.content }}</Option>
+                    <FormItem prop="ourmeeting2">
+                        <span style="margin-left:-50px;">{{labelstatusPath.ourmeeting2}}</span>
+                        <Select style="width:300px;margin-left:10px;float:right;" v-model="ourmeeting2" multiple>
+                            <Option v-for="item in personcontent" v-if="item.type==19" :value="item.id" :key="item.id">{{ item.content }}</Option>
                         </Select>
                     </FormItem>
                 </td>
                 <td>
-                    <FormItem label="其他会议" prop="othermeeting">
-                        <Select v-model="othermeeting" multiple style="width:300px">
+                    <FormItem prop="othermeeting">
+                        <span>{{labelstatusPath.othermeeting}}</span>
+                        <Select style="width:300px;margin-left:10px;float:right;" v-model="othermeeting" multiple>
                             <Option v-for="item in personcontent" v-if="item.type==11" :value="item.id" :key="item.id">{{ item.content }}</Option>
                         </Select>
                     </FormItem>
@@ -290,35 +341,47 @@
             </tr>
             <tr>
                 <td>
-                    <FormItem label="业务来源" prop="businesssources">
-                        <Select v-model="businesssources" multiple style="width:300px">
+                    <FormItem prop="businesssources">
+                        <span style="margin-left:-50px;">{{labelstatusPath.businesssources}}</span>
+                        <Select style="width:300px;margin-left:10px;float:right;" v-model="businesssources" multiple>
                             <Option v-for="item in personcontent" v-if="item.type==12" :value="item.id" :key="item.id">{{ item.content }}</Option>
                         </Select>
                     </FormItem>
                 </td>
                 <td>
-                    <FormItem label="列1" prop="row1"><Input v-model="personValidate.row1" placeholder="请输入列1..." style="width:300px;"></Input></FormItem>
+                    <FormItem prop="row1">
+                        <span>列1</span>
+                        <Input style="width:300px;margin-left:10px;float:right;" v-model="personValidate.row1" placeholder="请输入列1..."></Input>
+                    </FormItem>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <FormItem label="当年发行合计112" prop="year112"><Input v-model="personValidate.year112" placeholder="请输入当年发行合计112..." style="width:300px;" disabled></Input></FormItem>
+                    <FormItem prop="year112">
+                        <span style="margin-left:-50px;">当年发行合计112</span>
+                        <Input style="width:300px;margin-left:10px;float:right;" v-model="personValidate.year112" placeholder="请输入当年发行合计112..." disabled></Input>
+                    </FormItem>
                 </td>
                 <td>
-                    <FormItem label="当年发行合计11" prop="year11"><Input v-model="personValidate.year11" placeholder="请输入当年发行合计11..." style="width:300px;" @on-blur="changeyear(personValidate.year11)"></Input></FormItem>
+                    <FormItem prop="year11">
+                        <span>当年发行合计11</span>
+                        <Input style="width:300px;margin-left:10px;float:right;" v-model="personValidate.year11" placeholder="请输入当年发行合计11..." @on-blur="changeyear(personValidate.year11)"></Input>
+                    </FormItem>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <FormItem label="当期发行" prop="currentissue">
-                        <Select v-model="currentissue" multiple style="width:300px" @on-change="changecurrent(currentissue)">
+                    <FormItem prop="currentissue">
+                        <span style="margin-left:-50px;">{{labelstatusPath.currentissue}}</span>
+                        <Select style="width:300px;margin-left:10px;float:right;" v-model="currentissue" multiple @on-change="changecurrent(currentissue)">
                             <Option v-for="item in personcontent" v-if="item.type==15" :value="item.id" :key="item.id">{{ item.content }}</Option>
                         </Select>
                     </FormItem>
                 </td>
                 <td>
-                    <FormItem label="国家/地区" prop="countryregion">
-                        <Select v-model="countryregion" multiple style="width:300px">
+                    <FormItem prop="countryregion">
+                        <span>{{labelstatusPath.countryregion}}</span>
+                        <Select style="width:300px;margin-left:10px;float:right;" v-model="countryregion" multiple>
                             <Option v-for="item in personcontent" v-if="item.type==13" :value="item.id" :key="item.id">{{ item.content }}</Option>
                         </Select>
                     </FormItem>
@@ -326,35 +389,47 @@
             </tr>
             <tr>
                 <td>
-                    <FormItem label="城市" prop="city">
-                        <Select v-model="city" multiple style="width:300px">
+                    <FormItem prop="city">
+                        <span style="margin-left:-50px;">{{labelstatusPath.city}}</span>
+                        <Select style="width:300px;margin-left:10px;float:right;" v-model="city" multiple>
                             <Option v-for="item in personcontent" v-if="item.type==14" :value="item.id" :key="item.id">{{ item.content }}</Option>
                         </Select>
                     </FormItem>
                 </td>
                 <td>
-                    <FormItem label="以前单位和职务" prop="formerunitposition"><Input v-model="personValidate.formerunitposition" placeholder="请输入以前单位和职务..." style="width:300px;"></Input></FormItem>
+                    <FormItem prop="formerunitposition">
+                        <span>以前单位和职务</span>
+                        <Input style="width:300px;margin-left:10px;float:right;" v-model="personValidate.formerunitposition" placeholder="请输入以前单位和职务..."></Input>
+                    </FormItem>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <FormItem label="不用" prop="noneed"><Input v-model="personValidate.noneed" placeholder="请输入不用..." style="width:300px;"></Input></FormItem>
+                    <FormItem prop="noneed">
+                        <span style="margin-left:-50px;">不用</span>
+                        <Input style="width:300px;margin-left:10px;float:right;" v-model="personValidate.noneed" placeholder="请输入不用..."></Input>
+                    </FormItem>
                 </td>
                 <td>
-                    <FormItem label="更新数据时间" prop="updatedatatime"><Input v-model="personValidate.updatedatatime" placeholder="请输入更新数据时间..." style="width:300px;"></Input></FormItem>
+                    <FormItem prop="updatedatatime">
+                        <span>更新数据时间</span>
+                        <Input style="width:300px;margin-left:10px;float:right;" v-model="personValidate.updatedatatime" placeholder="请输入更新数据时间..."></Input>
+                    </FormItem>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <FormItem label="是否寄杂志" prop="magazine">
-                        <Select v-model="magazine" multiple style="width:300px">
+                    <FormItem prop="magazine">
+                        <span style="margin-left:-50px;">{{labelstatusPath.magazine}}</span>
+                        <Select style="width:300px;margin-left:10px;float:right;" v-model="magazine" multiple>
                             <Option v-for="item in personcontent" v-if="item.type==16" :value="item.id" :key="item.id">{{ item.content }}</Option>
                         </Select>
                     </FormItem>
                 </td>
                 <td>
-                    <FormItem label="发行方式" prop="distributionmode">
-                        <Select v-model="distributionmode" multiple style="width:300px">
+                    <FormItem prop="distributionmode">
+                        <span>{{labelstatusPath.distributionmode}}</span>
+                        <Select style="width:300px;margin-left:10px;float:right;" v-model="distributionmode" multiple>
                             <Option v-for="item in personcontent" v-if="item.type==17" :value="item.id" :key="item.id">{{ item.content }}</Option>
                         </Select>
                     </FormItem>
@@ -362,11 +437,15 @@
             </tr>
             <tr>
                 <td>
-                    <FormItem label="备注" prop="remarks"><Input v-model="personValidate.remarks" placeholder="请输入备注..." style="width:300px;"></Input></FormItem>
+                    <FormItem prop="remarks">
+                        <span style="margin-left:-50px;">备注</span>
+                        <Input style="width:300px;margin-left:10px;float:right;" v-model="personValidate.remarks" placeholder="请输入备注..."></Input>
+                    </FormItem>
                 </td>
                 <td>
-                    <FormItem label="业务员" prop="salesman">
-                        <Select v-model="salesman" multiple style="width:300px">
+                    <FormItem prop="salesman">
+                        <span>{{labelstatusPath.salesman}}</span>
+                        <Select style="width:300px;margin-left:10px;float:right;" v-model="salesman" multiple>
                             <Option v-for="item in personcontent" v-if="item.type==18" :value="item.id" :key="item.id">{{ item.content }}</Option>
                         </Select>
                     </FormItem>
@@ -374,22 +453,34 @@
             </tr>
             <tr>
                 <td>
-                    <FormItem label="份数" prop="copies"><Input v-model="personValidate.copies" placeholder="请输入份数..." style="width:300px;"></Input></FormItem>
+                    <FormItem prop="copies">
+                        <span style="margin-left:-50px;">份数</span>
+                        <Input style="width:300px;margin-left:10px;float:right;" v-model="personValidate.copies" placeholder="请输入份数..."></Input>
+                    </FormItem>
                 </td>
                 <td>
-                    <FormItem label="最新联系情况" prop="latestcontact"><Input v-model="personValidate.latestcontact" placeholder="请输入最新联系情况..." style="width:300px;"></Input></FormItem>
+                    <FormItem prop="latestcontact">
+                        <span>最新联系情况</span>
+                        <Input style="width:300px;margin-left:10px;float:right;" v-model="personValidate.latestcontact" placeholder="请输入最新联系情况..."></Input>
+                    </FormItem>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <FormItem label="更新日期" prop="updatedate"><Input v-model="personValidate.updatedate" placeholder="请输入更新日期..." style="width:300px;"></Input></FormItem>
+                    <FormItem prop="updatedate">
+                        <span style="margin-left:-50px;">更新日期</span>
+                        <Input style="width:300px;margin-left:10px;float:right;" v-model="personValidate.updatedate" placeholder="请输入更新日期..."></Input>
+                    </FormItem>
                 </td>
                 <td>
-                    <FormItem label="查证的问题" prop="verificationproblem"><Input v-model="personValidate.verificationproblem" placeholder="请输入查证的问题..." style="width:300px;"></Input></FormItem>
+                    <FormItem prop="verificationproblem">
+                        <span>查证的问题</span>
+                        <Input style="width:300px;margin-left:10px;float:right;" v-model="personValidate.verificationproblem" placeholder="请输入查证的问题..."></Input>
+                    </FormItem>
                 </td>
             </tr>
             <FormItem>
-                <Button type="primary" @click="savePerson1('personValidate1')" style="margin-left:200px;">保存</Button>
+                <Button type="primary" @click="savePerson1('personValidate1')" style="margin-left:350px;">保存</Button>
                 <Button type="ghost" @click="resetPerson('personValidate1')" style="margin-left: 8px">重置</Button>
             </FormItem>
         </Form>
@@ -408,16 +499,17 @@ export default {
             person_index: -1,
             searchPersonList: [],
             personColumns: [
-                {title: '序号', type: 'index', width: 70, align: 'center'}, // 单选
-                {title: '昵称*', key: 'nickname', width: 90, align: 'center'},
+                {title: '序号', type: 'index', width: 60, align: 'center'}, // 单选
+                {title: '昵称*', key: 'nickname', width: 100, align: 'center'},
                 {title: '国家*', key: 'country', width: 90, align: 'center'},
                 {title: '省份*', key: 'province', width: 100, align: 'center'},
-                {title: '城市*', key: 'towm', width: 100, align: 'center'},
+                {title: '城市*', key: 'towm', width: 90, align: 'center'},
                 {title: '姓名', key: 'name', width: 90, align: 'center'},
                 {title: '单位', key: 'unit', width: 160, align: 'center'},
-                {title: '职务', key: 'position', width: 160, align: 'center'},
+                {title: '职务', key: 'position', width: 150, align: 'center'},
                 {title: '手机号', key: 'phone', width: 120, align: 'center'},
-                {title: '关注时间', key: 'inserttime', width: 160, align: 'center'},
+                {title: '关注时间', key: 'inserttime', width: 100, align: 'center'},
+                {title: '取消关注', key: 'endtime', width: 100, align: 'center'},
                 { title: '操作',
                     key: 'action',
                     align: 'center',
@@ -557,7 +649,42 @@ export default {
             magazine_query: [],
             distributionmode_query: [],
             salesman_query: [],
-            query_status:''
+            query_status:'',
+
+            labelNmae: {
+                seminar: '',
+                unitproperties: '',
+                unitspecialty: '',
+                industryfield: '',
+                internationalproject: '',
+                midtownrail: '',
+                relatedstudy: '',
+                cooperativeproject: '',
+                ourmeeting: '',
+                ourmeeting2: '',
+                othermeeting: '',
+                businesssources: '',
+                row1: '',
+                year112: '',
+                year11: '',
+                currentissue: '',
+                countryregion: '',
+                city: '',
+                formerunitposition: '',
+                noneed: '',
+                updatedatatime: '',
+                magazine: '',
+                distributionmode: '',
+                remarks: '',
+                salesman: '',
+                copies: '',
+                latestcontact: '',
+                updatedate: '',
+                verificationproblem: '',
+                type: '',
+                persontype: '',
+                meetid: ''
+            },
         };
     },
     methods: {
@@ -573,6 +700,7 @@ export default {
                 this.relatedstudy_query= [],
                 this.cooperativeproject_query= [],
                 this.ourmeeting_query= [],
+                this.ourmeeting2_query= [],
                 this.othermeeting_query= [],
                 this.businesssources_query= [],
                 this.currentissue_query= [],
@@ -724,6 +852,7 @@ export default {
             this.relatedstudy_query = [];
             this.cooperativeproject_query = [];
             this.ourmeeting_query = [];
+            this.ourmeeting2_query = [];
             this.othermeeting_query = [];
             this.businesssources_query = [];
             this.currentissue_query = [];
@@ -1040,7 +1169,7 @@ export default {
                 '&businesssources_query=' + this_.businesssources_query + '' +  '&currentissue_query=' + this_.currentissue_query + '' + 
                 '&countryregion_query=' + this_.countryregion_query + '' + '&city_query=' + this_.city_query + '' + 
                 '&magazine_query=' + this_.magazine_query + '' + '&distributionmode_query=' + this_.distributionmode_query + '' +
-                '&salesman_query=' + this_.salesman_query + '' + '&persontype=' + "2")
+                '&salesman_query=' + this_.salesman_query + '' + '&persontype=' + "2" + '&ourmeeting2_query=' + this_.ourmeeting2_query)
                 .then(function (response) {
                     this_.$store.commit('guestpersonlist', response.data.guestpersonlist);
                 });
@@ -1105,6 +1234,49 @@ export default {
     computed: {
         outsidegrouppersonlistPath: function () {
             return this.$store.getters.outsidegrouppersonlistPath;
+        },
+        labelstatusPath: function () {
+            let labelstatus = this.$store.getters.labelstatusPath;
+            for (let i = 0; i < labelstatus.length; i++) {
+                if(labelstatus[i].type == "1") {
+                    this.labelNmae.unitspecialty = labelstatus[i].labelname;
+                } else if(labelstatus[i].type == "2") {
+                    this.labelNmae.unitproperties = labelstatus[i].labelname;
+                } else if(labelstatus[i].type == "3") {
+                    this.labelNmae.industryfield = labelstatus[i].labelname;
+                } else if(labelstatus[i].type == "4") {
+                    this.labelNmae.seminar = labelstatus[i].labelname;
+                } else if(labelstatus[i].type == "5") {
+                    this.labelNmae.internationalproject = labelstatus[i].labelname;
+                } else if(labelstatus[i].type == "6") {
+                    this.labelNmae.cooperativeproject = labelstatus[i].labelname;
+                } else if(labelstatus[i].type == "8") {
+                    this.labelNmae.midtownrail = labelstatus[i].labelname;
+                } else if(labelstatus[i].type == "9") {
+                    this.labelNmae.relatedstudy = labelstatus[i].labelname;
+                } else if(labelstatus[i].type == "10") {
+                    this.labelNmae.ourmeeting = labelstatus[i].labelname;
+                } else if(labelstatus[i].type == "11") {
+                    this.labelNmae.othermeeting = labelstatus[i].labelname;
+                } else if(labelstatus[i].type == "12") {
+                    this.labelNmae.businesssources = labelstatus[i].labelname;
+                } else if(labelstatus[i].type == "13") {
+                    this.labelNmae.countryregion = labelstatus[i].labelname;
+                } else if(labelstatus[i].type == "14") {
+                    this.labelNmae.city = labelstatus[i].labelname;
+                } else if(labelstatus[i].type == "15") {
+                    this.labelNmae.currentissue = labelstatus[i].labelname;
+                } else if(labelstatus[i].type == "16") {
+                    this.labelNmae.magazine = labelstatus[i].labelname;
+                } else if(labelstatus[i].type == "17") {
+                    this.labelNmae.distributionmode = labelstatus[i].labelname;
+                } else if(labelstatus[i].type == "18") {
+                    this.labelNmae.salesman = labelstatus[i].labelname;
+                } else if(labelstatus[i].type == "19") {
+                    this.labelNmae.ourmeeting2 = labelstatus[i].labelname;
+                }
+            }
+            return this.labelNmae;
         },
         personcontent: function () {
             return this.$store.getters.personcontentPath;
