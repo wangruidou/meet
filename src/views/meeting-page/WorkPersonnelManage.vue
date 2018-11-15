@@ -195,6 +195,42 @@
                     </FormItem>
                 </td>
             </tr>
+            <tr>
+                <td>
+                    <FormItem>
+                        <span style="margin-left:-50px;">{{labelstatusPath.custom1}}</span>
+                        <Select style="width:300px;margin-left:10px;float:right;" v-model="custom1_query" multiple>
+                            <Option v-for="item in personcontent" v-if="item.type==20" :value="item.id" :key="item.id">{{ item.content }}</Option>
+                        </Select>
+                    </FormItem>
+                </td>
+                <td>
+                    <FormItem>
+                        <span>{{labelstatusPath.custom2}}</span>
+                        <Select style="width:300px;margin-left:10px;float:right;" v-model="custom2_query" multiple>
+                            <Option v-for="item in personcontent" v-if="item.type==21" :value="item.id" :key="item.id">{{ item.content }}</Option>
+                        </Select>
+                    </FormItem>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <FormItem>
+                        <span style="margin-left:-50px;">{{labelstatusPath.custom3}}</span>
+                        <Select style="width:300px;margin-left:10px;float:right;" v-model="custom3_query" multiple>
+                            <Option v-for="item in personcontent" v-if="item.type==22" :value="item.id" :key="item.id">{{ item.content }}</Option>
+                        </Select>
+                    </FormItem>
+                </td>
+                <td>
+                    <FormItem>
+                        <span>{{labelstatusPath.custom4}}</span>
+                        <Select style="width:300px;margin-left:10px;float:right;" v-model="custom4_query" multiple>
+                            <Option v-for="item in personcontent" v-if="item.type==23" :value="item.id" :key="item.id">{{ item.content }}</Option>
+                        </Select>
+                    </FormItem>
+                </td>
+            </tr>
             <FormItem>
                 <Button type="primary" @click="savePerson2()" style="margin-left:350px;">查询</Button>
                 <Button type="ghost" @click="resetPerson_query()" style="margin-left: 8px">重置</Button>
@@ -479,6 +515,42 @@
                     </FormItem>
                 </td>
             </tr>
+            <tr>
+                <td>
+                    <FormItem prop="custom1">
+                        <span style="margin-left:-50px;">{{labelstatusPath.custom1}}</span>
+                        <Select style="width:300px;margin-left:10px;float:right;" v-model="custom1" multiple>
+                            <Option v-for="item in personcontent" v-if="item.type==20" :value="item.id" :key="item.id">{{ item.content }}</Option>
+                        </Select>
+                    </FormItem>
+                </td>
+                <td>
+                    <FormItem prop="custom2">
+                        <span>{{labelstatusPath.custom2}}</span>
+                        <Select style="width:300px;margin-left:10px;float:right;" v-model="custom2" multiple>
+                            <Option v-for="item in personcontent" v-if="item.type==21" :value="item.id" :key="item.id">{{ item.content }}</Option>
+                        </Select>
+                    </FormItem>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <FormItem prop="custom3">
+                        <span style="margin-left:-50px;">{{labelstatusPath.custom3}}</span>
+                        <Select style="width:300px;margin-left:10px;float:right;" v-model="custom3" multiple>
+                            <Option v-for="item in personcontent" v-if="item.type==22" :value="item.id" :key="item.id">{{ item.content }}</Option>
+                        </Select>
+                    </FormItem>
+                </td>
+                <td>
+                    <FormItem prop="custom4">
+                        <span>{{labelstatusPath.custom4}}</span>
+                        <Select style="width:300px;margin-left:10px;float:right;" v-model="custom4" multiple>
+                            <Option v-for="item in personcontent" v-if="item.type==23" :value="item.id" :key="item.id">{{ item.content }}</Option>
+                        </Select>
+                    </FormItem>
+                </td>
+            </tr>
             <FormItem>
                 <Button type="primary" @click="savePerson1('personValidate1')" style="margin-left:350px;">保存</Button>
                 <Button type="ghost" @click="resetPerson('personValidate1')" style="margin-left: 8px">重置</Button>
@@ -588,6 +660,10 @@ export default {
                 latestcontact: '',
                 updatedate: '',
                 verificationproblem: '',
+                custom1:'',
+                custom2:'',
+                custom3:'',
+                custom4:'',
                 type: '',
                 persontype: '',
                 meetid: ''
@@ -629,6 +705,10 @@ export default {
             magazine: [],
             distributionmode: [],
             salesman: [],
+            custom1:[],
+            custom2:[],
+            custom3:[],
+            custom4:[],
 
             query: false, // 标签查询页面打开状态
             seminar_query: [],
@@ -649,6 +729,10 @@ export default {
             magazine_query: [],
             distributionmode_query: [],
             salesman_query: [],
+            custom1_query:[],
+            custom2_query:[],
+            custom3_query:[],
+            custom4_query:[],
             query_status:'',
 
             labelNmae: {
@@ -681,6 +765,10 @@ export default {
                 latestcontact: '',
                 updatedate: '',
                 verificationproblem: '',
+                custom1:'',
+                custom2:'',
+                custom3:'',
+                custom4:'',
                 type: '',
                 persontype: '',
                 meetid: ''
@@ -708,7 +796,11 @@ export default {
                 this.city_query= [],
                 this.magazine_query= [],
                 this.distributionmode_query= [],
-                this.salesman_query= []
+                this.salesman_query= [],
+                this.custom1_query= [],
+                this.custom2_query= [],
+                this.custom3_query= [],
+                this.custom4_query= []
             }
             this.query = true;
         },
@@ -746,6 +838,10 @@ export default {
             this.magazine = [];
             this.distributionmode = [];
             this.salesman = [];
+            this.custom1= [],
+            this.custom2= [],
+            this.custom3= [],
+            this.custom4= []
             this.person_modal = true;
         },
         handlePage (index) {
@@ -841,6 +937,10 @@ export default {
             this.magazine = [];
             this.distributionmode = [];
             this.salesman = [];
+            this.custom1= [];
+            this.custom2= [];
+            this.custom3= [];
+            this.custom4= [];
         },
         resetPerson_query () {
             this.seminar_query = [];
@@ -861,6 +961,10 @@ export default {
             this.magazine_query = [];
             this.distributionmode_query = [];
             this.salesman_query = [];
+            this.custom1_query= [];
+            this.custom2_query= [];
+            this.custom3_query= [];
+            this.custom4_query= [];
         },
         detailPerson (row) {
             this.seminar = [];
@@ -881,6 +985,10 @@ export default {
             this.magazine = [];
             this.distributionmode = [];
             this.salesman = [];
+            this.custom1 = [];
+            this.custom2 = [];
+            this.custom3 = [];
+            this.custom4 = [];
 
             this.person_index = row.id;
             this.detail = true;
@@ -1096,6 +1204,42 @@ export default {
                 });
                 this_.salesman = salesman;
             }
+            if (row.custom1 !== null && row.custom1 !== undefined) {
+                let custom1 = [];
+                row.custom1.split(',').forEach(function (data, index, arr) {
+                    if (data !== '') {
+                        custom1.push(+data + '');
+                    }
+                });
+                this_.custom1 = custom1;
+            }
+            if (row.custom2 !== null && row.custom2 !== undefined) {
+                let custom2 = [];
+                row.custom2.split(',').forEach(function (data, index, arr) {
+                    if (data !== '') {
+                        custom2.push(+data + '');
+                    }
+                });
+                this_.custom2 = custom2;
+            }
+            if (row.custom3 !== null && row.custom3 !== undefined) {
+                let custom3 = [];
+                row.custom3.split(',').forEach(function (data, index, arr) {
+                    if (data !== '') {
+                        custom3.push(+data + '');
+                    }
+                });
+                this_.custom3 = custom3;
+            }
+            if (row.custom4 !== null && row.custom4 !== undefined) {
+                let custom4 = [];
+                row.custom4.split(',').forEach(function (data, index, arr) {
+                    if (data !== '') {
+                        custom4.push(+data + '');
+                    }
+                });
+                this_.custom4 = custom4;
+            }
         },
         savePerson1 (name) {
             let this_ = this;
@@ -1120,6 +1264,10 @@ export default {
                 this_.personValidate.magazine = this_.magazine + '';
                 this_.personValidate.distributionmode = this_.distributionmode + '';
                 this_.personValidate.salesman = this_.salesman + '';
+                this_.personValidate.custom1 = this_.custom1 + '';
+                this_.personValidate.custom2 = this_.custom2 + '';
+                this_.personValidate.custom3 = this_.custom3 + '';
+                this_.personValidate.custom4 = this_.custom4 + '';
                 this_.personValidate.persontype = '2';
                 this_.personValidate.meetid = '';
                 this.$ajax.post('guestperson/editmx',
@@ -1140,7 +1288,8 @@ export default {
                     '&remarks=' + this_.personValidate.remarks + '' + '&salesman=' + this_.salesman + '' +
                     '&copies=' + this_.personValidate.copies + '' + '&latestcontact=' + this_.personValidate.latestcontact +
                     '&updatedate=' + this_.personValidate.updatedate + '' + '&verificationproblem=' + this_.personValidate.verificationproblem +
-                    '&id=' + this_.person_index + '&persontype=' + this_.personValidate.persontype)
+                    '&id=' + this_.person_index + '&persontype=' + this_.personValidate.persontype + '&custom1=' + this_.custom1 + '' + 
+                    '&custom2=' + this_.custom2 + ''+ '&custom3=' + this_.custom3 + '' + '&custom4=' + this_.custom4 + '')
                     .then(function (response) {
                         if (response.data.errorCode === 0) {
                             this_.$Message.config({
@@ -1169,7 +1318,9 @@ export default {
                 '&businesssources_query=' + this_.businesssources_query + '' +  '&currentissue_query=' + this_.currentissue_query + '' + 
                 '&countryregion_query=' + this_.countryregion_query + '' + '&city_query=' + this_.city_query + '' + 
                 '&magazine_query=' + this_.magazine_query + '' + '&distributionmode_query=' + this_.distributionmode_query + '' +
-                '&salesman_query=' + this_.salesman_query + '' + '&persontype=' + "2" + '&ourmeeting2_query=' + this_.ourmeeting2_query)
+                '&salesman_query=' + this_.salesman_query + '' + '&persontype=' + "2" + '&ourmeeting2_query=' + this_.ourmeeting2_query+ '' +
+                '&custom1_query=' + this_.custom1_query + '' + '&custom2_query=' + this_.custom2_query + '' + 
+                '&custom3_query=' + this_.custom3_query + '' + '&custom4_query=' + this_.custom4_query + '')
                 .then(function (response) {
                     this_.$store.commit('guestpersonlist', response.data.guestpersonlist);
                 });
@@ -1274,6 +1425,14 @@ export default {
                     this.labelNmae.salesman = labelstatus[i].labelname;
                 } else if(labelstatus[i].type == "19") {
                     this.labelNmae.ourmeeting2 = labelstatus[i].labelname;
+                } else if(labelstatus[i].type == "20") {
+                    this.labelNmae.custom1 = labelstatus[i].labelname;
+                } else if(labelstatus[i].type == "21") {
+                    this.labelNmae.custom2 = labelstatus[i].labelname;
+                } else if(labelstatus[i].type == "22") {
+                    this.labelNmae.custom3 = labelstatus[i].labelname;
+                } else if(labelstatus[i].type == "23") {
+                    this.labelNmae.custom4 = labelstatus[i].labelname;
                 }
             }
             return this.labelNmae;

@@ -126,6 +126,10 @@ const meet = {
                                     state.grestpersonColumnsData[i].latestcontact = data.latestcontact;
                                     state.grestpersonColumnsData[i].updatedate = data.updatedate;
                                     state.grestpersonColumnsData[i].verificationproblem = data.verificationproblem;
+                                    state.grestpersonColumnsData[i].custom1 = data.custom1;
+                                    state.grestpersonColumnsData[i].custom2 = data.custom2;
+                                    state.grestpersonColumnsData[i].custom3 = data.custom3;
+                                    state.grestpersonColumnsData[i].custom4 = data.custom4;
                                 }
                             }
                         }
@@ -184,6 +188,10 @@ const meet = {
                                     state.outsidegrouppersonColumnsData[i].latestcontact = data.latestcontact;
                                     state.outsidegrouppersonColumnsData[i].updatedate = data.updatedate;
                                     state.outsidegrouppersonColumnsData[i].verificationproblem = data.verificationproblem;
+                                    state.outsidegrouppersonColumnsData[i].custom1 = data.custom1;
+                                    state.outsidegrouppersonColumnsData[i].custom2 = data.custom2;
+                                    state.outsidegrouppersonColumnsData[i].custom3 = data.custom3;
+                                    state.outsidegrouppersonColumnsData[i].custom4 = data.custom4;
                                 }
                             }
                         }
@@ -260,6 +268,10 @@ const meet = {
                                 state.basicpersonColumnsData[i].latestcontact = data.latestcontact;
                                 state.basicpersonColumnsData[i].updatedate = data.updatedate;
                                 state.basicpersonColumnsData[i].verificationproblem = data.verificationproblem;
+                                state.basicpersonColumnsData[i].custom1 = data.custom1;
+                                state.basicpersonColumnsData[i].custom2 = data.custom2;
+                                state.basicpersonColumnsData[i].custom3 = data.custom3;
+                                state.basicpersonColumnsData[i].custom4 = data.custom4;
                             }
                         }
                     } else {
@@ -533,6 +545,10 @@ const meet = {
                                 state.meetingpersonData[i].latestcontact = data.latestcontact;
                                 state.meetingpersonData[i].updatedate = data.updatedate;
                                 state.meetingpersonData[i].verificationproblem = data.verificationproblem;
+                                state.meetingpersonData[i].custom1 = data.custom1;
+                                state.meetingpersonData[i].custom2 = data.custom2;
+                                state.meetingpersonData[i].custom3 = data.custom3;
+                                state.meetingpersonData[i].custom4 = data.custom4;
                             }
                         }
                     } else {

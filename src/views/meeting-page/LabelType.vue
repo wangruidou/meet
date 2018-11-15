@@ -471,6 +471,42 @@ export default {
                            }
                        }
                    } 
+               } else if (this.status == '20') {
+                   if (person[i].custom1 != null && person[i].custom1 != '' && person[i].custom1 != undefined) {
+                       let custom1 = person[i].custom1.split(",")
+                       for(let j = 0; j < custom1.length; j++) {
+                           if(custom1[j] == id) {
+                               a = true;
+                           }
+                       }
+                   } 
+               } else if (this.status == '21') {
+                   if (person[i].custom2 != null && person[i].custom2 != '' && person[i].custom2 != undefined) {
+                       let custom2 = person[i].custom2.split(",")
+                       for(let j = 0; j < custom2.length; j++) {
+                           if(custom2[j] == id) {
+                               a = true;
+                           }
+                       }
+                   } 
+               } else if (this.status == '22') {
+                   if (person[i].custom3 != null && person[i].custom3 != '' && person[i].custom3 != undefined) {
+                       let custom3 = person[i].custom3.split(",")
+                       for(let j = 0; j < custom3.length; j++) {
+                           if(custom3[j] == id) {
+                               a = true;
+                           }
+                       }
+                   } 
+               } else if (this.status == '23') {
+                   if (person[i].custom4 != null && person[i].custom4 != '' && person[i].custom4 != undefined) {
+                       let custom4 = person[i].custom4.split(",")
+                       for(let j = 0; j < custom4.length; j++) {
+                           if(custom4[j] == id) {
+                               a = true;
+                           }
+                       }
+                   } 
                }
             }
 

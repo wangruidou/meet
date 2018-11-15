@@ -51,11 +51,20 @@
 </template>
 
 <script>
+import expandRow from './components/table-expand.vue';
 export default {
+    components: { expandRow },
     data () {
         return {
             columns1: [
-                {title: '序号', type: 'index', width: 100, align: 'center'}, // 单选
+                {type: 'index', width: 100, align: 'center',type: 'expand',
+                render: (h, params) => {
+                    return h(expandRow, {
+                        props: {
+                            row: params.row
+                        }
+                    })
+                }}, // 单选
                 {title: '分组名称', key: 'group_name', width: 600, align: 'center'},
                 { title: '操作',
                     key: 'action',
@@ -301,11 +310,27 @@ export default {
         },
         data1: function () {
             let group = this.workgroupPath;
+            let outsidegroupperson = this.outsidegrouppersonlistPath;
             let groups = [];
             let group1 = [];
             for (let i = 0; i < group.length; i++) {
+                let p = '';
                 if (group[i].meetid !== '' && group[i].meetid !== undefined) {
                     if (group[i].meetid === this.$route.query.sceneid) {
+                        let persons = group[i].persons.split(",");
+                        for(let j = 0; j < outsidegroupperson.length; j++) {
+                            for(let z = 0; z < persons.length; z++) {
+                                if(outsidegroupperson[j].openid === persons[z]) {
+                                    if (outsidegroupperson[j].name !== '' && outsidegroupperson[j].name !== undefined) {
+                                        p += outsidegroupperson[j].name + ',';
+                                    } else {
+                                        p += outsidegroupperson[j].nickname + ',';
+                                    }
+                                }
+                            }
+                        }
+                        p = p.substring(0, p.length - 1)
+                        group[i].p = p;
                         group1.push(group[i]);
                     }
                 }
