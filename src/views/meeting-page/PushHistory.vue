@@ -2,13 +2,7 @@
   <div class="animated fadeIn">
     <Row>
         <Card>
-            <p slot="title" style="height:30px">
-                <Icon type="compose"></Icon>
-                推送消息历史详情
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                会议名称：{{this.$route.query.meeting}}
-            </p>
-            <Table highlight-row ref="personRowTable" :columns="personColumns" :data="logs_data" style="margin-bottom:5px;"></Table>
+            <Table :height="myHeight" highlight-row ref="personRowTable" :columns="personColumns" :data="logs_data" style="margin-bottom:5px;"></Table>
             <Page :total="pageTotal" :page-size="pageSize" :current="pageNumber" size="small" class="paging" show-total @on-change="handlePage"></Page>
             <br>
         </Card>
@@ -20,7 +14,7 @@
 export default {
     data () {
         return {
-            pageSize: 10,
+            pageSize: 8,
             pageNumber: 1,
             personColumns: [
                 {title: '序号', type: 'index', width: 70, align: 'center'}, // 单选
@@ -28,7 +22,8 @@ export default {
                 {title: '推送信息内容', key: 'log_content', align: 'center'},
                 {title: '组名/人名', key: 'groupname', width: 300, align: 'center'},
                 {title: '操作时间', key: 'log_time', width: 300, align: 'center'}
-            ]
+            ],
+            myHeight:(window.innerHeight-312),
         };
     },
     methods: {
@@ -123,6 +118,7 @@ export default {
         var _this = this;
         this.$ajax.post('meetingcolumns/list')
             .then(function (response) {
+                console.log(response.data.logslist);
                 _this.$store.commit('logslist', response.data.logslist);
             });
     }

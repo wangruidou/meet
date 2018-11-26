@@ -3,10 +3,6 @@
         <Row>
             <Card>
                 <p slot="title" style="height:33px">
-                    <Icon type="compose"></Icon>
-                    推送信息
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    会议名称：{{this.$route.query.meeting}}
                     <Button style="margin-right:100px;float:right;" type="primary" @click="handleSelect()">发送</Button>
                 </p>
                 <div class="tab-con">
@@ -127,7 +123,7 @@ export default {
             ],
             handlingmethod_col: [
                 {title: '处理方法', key: 'handlingmethod', width: 200, align: 'center'},
-                {title: '组名', key: 'groupname', width: 300, align: 'center'},
+                {title: '组名', key: 'groupname', width: 280, align: 'center'},
                 {title: '操作',
                     key: 'action',
                     align: 'center',

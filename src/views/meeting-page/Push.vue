@@ -1,14 +1,7 @@
 <template>
-  <div class="animated fadeIn">
+  <div v-bind:style="{height: myHeight}" class="animated fadeIn">
       <Row>
         <Card>
-            <p slot="title" style="height:30px">
-                <Icon type="compose"></Icon>
-                推送信息(参会人)详情
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                会议名称：{{this.$route.query.meeting}}
-            </p>
-            <br>
             <tr>
                 <textarea v-model="content" style="width:600px;height:100px;margin-top:5px;" placeholder="请输入推送内容..."></textarea>
             </tr>
@@ -38,7 +31,8 @@ export default {
     data () {
         return {
             targetKeys: [],
-            content:''
+            content:'',
+            myHeight: (window.innerHeight - 260) + 'px',
         };
     },
     methods: {

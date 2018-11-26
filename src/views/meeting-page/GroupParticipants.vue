@@ -2,12 +2,6 @@
   <div class="animated fadeIn">
       <Row>
         <Card>
-            <p slot="title" style="height:30px">
-                <Icon type="compose"></Icon>
-                参会人员分组详情
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                会议名称：{{this.$route.query.meeting}}
-            </p>
             <div class="ivu-row">
                 <Row>
                     <Col span="6">
@@ -22,7 +16,7 @@
                 </Row>
             </div>
             <br>
-            <Table highlight-row ref="currentRowTable" :columns="columns1" :data="data1"></Table>
+            <Table :height="myHeight" highlight-row ref="currentRowTable" :columns="columns1" :data="data1"></Table>
             <Modal v-model="modal1" title="分组信息" width="600">
                 <Form ref="formItem" :model="formItem" :rules="ruleValidate" :label-width="100">
                     <FormItem label="分组名称" prop="group_name">
@@ -139,7 +133,8 @@ export default {
                     { required: true, message: '分组名称不能为空', trigger: 'blur' }
                 ]
             },
-            targetKeys2: []
+            targetKeys2: [],
+            myHeight: (window.innerHeight-350),
         };
     },
     methods: {

@@ -18,7 +18,7 @@
         </Row>
     </div>
     <br>
-    <Table highlight-row ref="personRowTable" :columns="personColumns" :data="person_data"></Table>
+    <Table :height="myHeight" highlight-row ref="personRowTable" :columns="personColumns" :data="person_data"></Table>
     <br>
     <Page :total="pageTotal" :page-size="pageSize" :current="pageNumber" size="small" class="paging" show-total @on-change="handlePage"></Page>
     <Modal v-model="person_modal" title="人员信息">
@@ -236,7 +236,7 @@
                 </td>
             </tr>
             <FormItem>
-                <Button type="primary" @click="savePerson2()" style="margin-left:200px;">查询</Button>
+                <Button type="primary" @click="savePerson2()" style="margin-left:350px;">查询</Button>
                 <Button type="ghost" @click="resetPerson_query()" style="margin-left: 8px">重置</Button>
             </FormItem>
         </Form>
@@ -612,7 +612,30 @@ export default {
                                         this.detailPerson(params.row);
                                     }
                                 }
-                            }, '详细')
+                            }, '详细'),
+                            h('Poptip', {
+                                props: {
+                                    confirm: true,
+                                    title: '您确定要删除这条数据吗?',
+                                    transfer: true
+                                },
+                                on: {
+                                    'on-ok': () => {
+                                        this.delete(params.row.id);
+                                    }
+                                }
+                            }, [
+                                h('Button', {
+                                    style: {
+                                        marginRight: '5px'
+                                    },
+                                    props: {
+                                        type: 'error',
+                                        size: 'small',
+                                        placement: 'top'
+                                    }
+                                }, '删除')
+                            ])
                         ]);
                     }
                 }
@@ -772,6 +795,7 @@ export default {
                 persontype: '',
                 meetid: ''
             },
+            myHeight:(window.innerHeight-215),
         };
     },
     methods: {

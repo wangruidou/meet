@@ -2,12 +2,6 @@
     <div>
         <Row>
             <Card id="a">
-                <p slot="title" style="height:30px">
-                    <Icon type="compose"></Icon>
-                    发布会议
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    会议名称：{{this.$route.query.meeting}}
-                </p>
                 <tr>
                     <Button style="margin-left:50px;margin-bottom:15px;" type="primary" @click="New()">选择发布模板</Button>
                     <Button style="margin-left:600px;margin-bottom:15px;" type="primary" @click="NewSign()">选择签到模板</Button>

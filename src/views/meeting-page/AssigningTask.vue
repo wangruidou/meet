@@ -3,14 +3,10 @@
         <Row>
             <Card>
                 <p slot="title" style="height:30px">
-                    <Icon type="compose"></Icon>
-                    任务详情
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    会议名称：{{this.$route.query.meeting}}
                     <Button style="margin-right:200px;float:right;" type="primary" @click="handleSelect()">发送任务</Button>
                     <Button style="margin-right:50px;float:right;" type="primary" @click="createTask('formItem')">新建任务</Button>
                 </p>
-                <Table :columns="dispatchtask_col" :data="dispatchtask_data" @on-selection-change="change"></Table>
+                <Table :height="myHeight" :columns="dispatchtask_col" :data="dispatchtask_data" @on-selection-change="change"></Table>
             </Card>
         </Row>
         <Modal v-model="modal1" title="任务信息" width="600">
@@ -56,14 +52,15 @@ export default {
             dispatchtask_col: [
                 {type: 'selection', width: 60, align: 'center'},
                 {title: '序号', type: 'index', width: 60, align: 'center'}, // 单选
-                {title: '任务名称', key: 'taskname', width: 180, align: 'center'},
-                {title: '工作时间', key: 'workingtime', width: 180, align: 'center'},
+                {title: '任务名称', key: 'taskname', align: 'center'},
+                {title: '工作时间', key: 'workingtime', width: 200, align: 'center'},
                 // {title: '工作进度', key: 'jobschedule', width: 150, align: 'center'},
-                {title: '主负责人', key: 'principal', width: 180, align: 'center'},
-                {title: '组名', key: 'groupname', width: 180, align: 'center'},
+                {title: '主负责人', key: 'principal', width: 200, align: 'center'},
+                {title: '组名', key: 'groupname', width: 200, align: 'center'},
                 {title: '操作',
                     key: 'action',
                     align: 'center',
+                    width: 200,
                     render: (h, params) => {
                         return h('div', [
                             h('Button', {
@@ -146,7 +143,8 @@ export default {
             targetKeys: [],
             targetEle: '',
             targetEleName: '',
-            selection: []
+            selection: [],
+            myHeight: (window.innerHeight-350),
         };
     },
     methods: {

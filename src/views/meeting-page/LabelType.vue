@@ -14,7 +14,7 @@
         </Row>
     </div>
     <br>
-    <Table highlight-row ref="currentRowTable" :columns="columns" :data="labelList"></Table>
+    <Table :height="labelHeight" highlight-row ref="currentRowTable" :columns="columns" :data="labelList"></Table>
 
     <Modal v-model="detailsModal" title="标签信息" width="70%">
         <div class="ivu-row" style="margin-bottom:10px">
@@ -28,7 +28,7 @@
                 <Button type="primary" @click="create('formItem')">新建标签</Button>
             </Col>
         </div>
-        <Table highlight-row ref="currentRowTable1" :columns="columnsDetails" :data="labelDetailsList"></Table>
+        <Table :height="labelDetailsHeight" highlight-row ref="currentRowTable1" :columns="columnsDetails" :data="labelDetailsList"></Table>
     </Modal>
 
     <Modal v-model="labelModal" title="标签内容" width="600">
@@ -67,6 +67,7 @@ export default {
                 { title: '操作',
                     key: 'action',
                     align: 'center',
+                    width: 400,
                     render: (h, params) => {
                         return h('div', [
                             h('Button', {
@@ -107,6 +108,7 @@ export default {
                 { title: '操作',
                     key: 'action',
                     align: 'center',
+                    width: 400,
                     render: (h, params) => {
                         return h('div', [
                             h('Button', {
@@ -185,6 +187,8 @@ export default {
             detailsModal:false, // 详情页面打开状态
             status:'', // 标签状态
             valueDetails:'', 
+            labelHeight: (window.innerHeight - 220),
+            labelDetailsHeight: (window.innerHeight - 250),
         };
     },
     methods: {

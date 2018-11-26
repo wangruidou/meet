@@ -99,91 +99,91 @@ export default {
                                     }
                                 }, '删除')
                             ]),
-                            // h('Button', {
-                            //     props: {
-                            //         type: 'primary',
-                            //         size: 'small'
-                            //     },
-                            //     style: {
-                            //         marginRight: '5px'
-                            //     },
-                            //     on: {
-                            //         click: () => {
-                            //             this.details(params.row);
-                            //         }
-                            //     }
-                            // }, '详情'),
-                            h('Dropdown', {
+                            h('Button', {
                                 props: {
-                                    transfer: true
+                                    type: 'primary',
+                                    size: 'small'
+                                },
+                                style: {
+                                    marginRight: '5px'
                                 },
                                 on: {
-                                    'on-click': (type) => {
-                                        this.more(type, params.row);
+                                    click: () => {
+                                        this.details(params.row);
                                     }
                                 }
-                            }, [
-                                h('Button', {
-                                    props: {
-                                        type: 'primary',
-                                        size: 'small'
-                                    }
-                                }, '更多'),
-                                h('DropdownMenu', {
-                                    slot: 'list'
-                                }, [
-                                    h('DropdownItem', {
-                                        props: {
-                                            name: 'staffmanagement'
-                                        }
-                                    }, '参会人员管理'),
-                                    h('DropdownItem', {
-                                        props: {
-                                            name: 'groupparticipants'
-                                        }
-                                    }, '参会人员分组'),
-                                    h('DropdownItem', {
-                                        props: {
-                                            name: 'workgroupmanage'
-                                        }
-                                    }, '工作人员分组'),
-                                    h('DropdownItem', {
-                                        props: {
-                                            name: 'assigningtask'
-                                        }
-                                    }, '分派任务'),
-                                    h('DropdownItem', {
-                                        props: {
-                                            name: 'releaseconference'
-                                        }
-                                    }, '发布会议'),
-                                    h('DropdownItem', {
-                                        props: {
-                                            name: 'pushinformation'
-                                        }
-                                    }, '推送信息'),
-                                    h('DropdownItem', {
-                                        props: {
-                                            name: 'push'
-                                        }
-                                    }, '推送信息(参会人)'),
-                                    h('DropdownItem', {
-                                        props: {
-                                            name: 'pushworker'
-                                        }
-                                    }, '推送信息(工作人)'),
-                                    h('DropdownItem', {
-                                        props: {
-                                            name: 'pushhistory'
-                                        }
-                                    }, '推送消息历史'),
-                                    h('DropdownItem', {
-                                        props: {
-                                            name: 'qrCode'
-                                        }
-                                    }, '查看签到二维码')
-                                ])
-                            ])
+                            }, '详情'),
+                            // h('Dropdown', {
+                            //     props: {
+                            //         transfer: true
+                            //     },
+                            //     on: {
+                            //         'on-click': (type) => {
+                            //             this.more(type, params.row);
+                            //         }
+                            //     }
+                            // }, [
+                            //     h('Button', {
+                            //         props: {
+                            //             type: 'primary',
+                            //             size: 'small'
+                            //         }
+                            //     }, '更多'),
+                            //     h('DropdownMenu', {
+                            //         slot: 'list'
+                            //     }, [
+                            //         h('DropdownItem', {
+                            //             props: {
+                            //                 name: 'staffmanagement'
+                            //             }
+                            //         }, '参会人员管理'),
+                            //         h('DropdownItem', {
+                            //             props: {
+                            //                 name: 'groupparticipants'
+                            //             }
+                            //         }, '参会人员分组'),
+                            //         h('DropdownItem', {
+                            //             props: {
+                            //                 name: 'workgroupmanage'
+                            //             }
+                            //         }, '工作人员分组'),
+                            //         h('DropdownItem', {
+                            //             props: {
+                            //                 name: 'assigningtask'
+                            //             }
+                            //         }, '分派任务'),
+                            //         h('DropdownItem', {
+                            //             props: {
+                            //                 name: 'releaseconference'
+                            //             }
+                            //         }, '发布会议'),
+                            //         h('DropdownItem', {
+                            //             props: {
+                            //                 name: 'pushinformation'
+                            //             }
+                            //         }, '推送信息'),
+                            //         h('DropdownItem', {
+                            //             props: {
+                            //                 name: 'push'
+                            //             }
+                            //         }, '推送信息(参会人)'),
+                            //         h('DropdownItem', {
+                            //             props: {
+                            //                 name: 'pushworker'
+                            //             }
+                            //         }, '推送信息(工作人)'),
+                            //         h('DropdownItem', {
+                            //             props: {
+                            //                 name: 'pushhistory'
+                            //             }
+                            //         }, '推送消息历史'),
+                            //         h('DropdownItem', {
+                            //             props: {
+                            //                 name: 'qrCode'
+                            //             }
+                            //         }, '查看签到二维码')
+                            //     ])
+                            // ])
                         ]);
                     }
                 }
@@ -247,7 +247,7 @@ export default {
             let id = param.id;
             let sceneid = param.sceneid + '';// 二维码
             let meeting = param.meet_name;
-            let query = {meeting: meeting, sceneid: sceneid, param: param};
+            let query = {id: id, meeting: meeting, sceneid: sceneid, param: param};
             this.$router.push({
                 name: 'details',
                 query: query

@@ -2,12 +2,6 @@
   <div class="animated fadeIn">
     <Row>
         <Card>
-            <p slot="title" style="height:30px">
-                <Icon type="compose"></Icon>
-                参会人员详情
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                会议名称：{{this.$route.query.meeting}}
-            </p>
             <div class="ivu-row">
                 <Row>
                     <Col span="6">
@@ -19,7 +13,7 @@
                 </Row>
             </div>
             <br>
-            <Table highlight-row ref="personRowTable" :columns="personColumns" :data="person_data" style="margin-bottom:5px;"></Table>
+            <Table :height="myHeight" highlight-row ref="personRowTable" :columns="personColumns" :data="person_data" style="margin-bottom:5px;"></Table>
             <Page :total="pageTotal" :page-size="pageSize" :current="pageNumber" size="small" class="paging" show-total @on-change="handlePage"></Page>
             <br>
             <Modal v-model="person_modal" title="人员信息">
@@ -580,16 +574,16 @@ export default {
             searchPersonList: [],
             personColumns: [
                 {title: '序号', type: 'index', width: 60, align: 'center'}, // 单选
-                {title: '姓名', key: 'name', width: 110, align: 'center'},
+                {title: '姓名', key: 'name', width: 90, align: 'center'},
                 {title: '单位', key: 'unit', width: 110, align: 'center'},
-                {title: '职务', key: 'position', width: 100, align: 'center'},
+                {title: '职务', key: 'position', width: 90, align: 'center'},
                 {title: '电话', key: 'phone', width: 110, align: 'center'},
                 {title: '演讲', key: 'speech', width: 90, align: 'center'},
                 {title: '礼物', key: 'gift', width: 90, align: 'center'},
                 {title: 'ppt', key: 'ppt', width: 90, align: 'center'},
                 {title: '签到状态', key: 'signname', width: 100, align: 'center'},
                 {title: '报名时间', key: 'inserttime', width: 150, align: 'center'},
-                {title: '所属参会组', key: 'groupname', width: 130, align: 'center'},
+                {title: '所属参会组', key: 'groupname', width: 120, align: 'center'},
                 { title: '操作',
                     key: 'action',
                     align: 'center',
@@ -775,6 +769,7 @@ export default {
                 persontype: '',
                 meetid: ''
             },
+            myHeight:(window.innerHeight-370),
         };
     },
     methods: {

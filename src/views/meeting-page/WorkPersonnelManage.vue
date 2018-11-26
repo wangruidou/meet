@@ -14,7 +14,7 @@
         </Row>
     </div>
     <br>
-    <Table highlight-row ref="personRowTable" :columns="personColumns" :data="person_data"></Table>
+    <Table :height="myHeight" highlight-row ref="personRowTable" :columns="personColumns" :data="person_data"></Table>
     <br>
     <Page :total="pageTotal" :page-size="pageSize" :current="pageNumber" size="small" class="paging" show-total @on-change="handlePage"></Page>
     <Modal v-model="person_modal" title="人员信息">
@@ -773,6 +773,7 @@ export default {
                 persontype: '',
                 meetid: ''
             },
+            myHeight:(window.innerHeight-215),
         };
     },
     methods: {

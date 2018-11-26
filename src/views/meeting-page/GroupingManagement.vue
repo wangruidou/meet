@@ -14,7 +14,7 @@
         </Row>
     </div>
     <br>
-    <Table highlight-row ref="currentRowTable" :columns="columns1" :data="data1"></Table>
+    <Table :height="myHeight" highlight-row ref="currentRowTable" :columns="columns1" :data="data1"></Table>
     <Modal v-model="modal1" title="分组信息" width="600">
         <Form ref="formItem" :model="formItem" :rules="ruleValidate" :label-width="100">
             <FormItem label="分组名称" prop="group_name">
@@ -46,10 +46,11 @@ export default {
         return {
             columns1: [
                 {title: '序号', type: 'index', width: 100, align: 'center'}, // 单选
-                {title: '分组名称', key: 'group_name', width: 600, align: 'center'},
+                {title: '分组名称', key: 'group_name', align: 'center'},
                 { title: '操作',
                     key: 'action',
                     align: 'center',
+                    width: 400,
                     render: (h, params) => {
                         return h('div', [
                             h('Button', {
@@ -129,7 +130,8 @@ export default {
                 ]
             },
             targetEle: '',
-            targetKeys2: []
+            targetKeys2: [],
+            myHeight: (window.innerHeight - 220),
         };
     },
     methods: {
