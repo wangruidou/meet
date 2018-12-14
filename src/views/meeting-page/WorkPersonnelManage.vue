@@ -578,13 +578,14 @@ export default {
                 {title: '城市*', key: 'towm', width: 90, align: 'center'},
                 {title: '姓名', key: 'name', width: 90, align: 'center'},
                 {title: '单位', key: 'unit', width: 160, align: 'center'},
-                {title: '职务', key: 'position', width: 150, align: 'center'},
+                {title: '职务', key: 'position', align: 'center'},
                 {title: '手机号', key: 'phone', width: 120, align: 'center'},
                 {title: '关注时间', key: 'inserttime', width: 100, align: 'center'},
                 {title: '取消关注', key: 'endtime', width: 100, align: 'center'},
                 { title: '操作',
                     key: 'action',
                     align: 'center',
+                    width: 130,
                     render: (h, params) => {
                         return h('div', [
                             h('Button', {
@@ -1324,6 +1325,7 @@ export default {
                 '&custom3_query=' + this_.custom3_query + '' + '&custom4_query=' + this_.custom4_query + '')
                 .then(function (response) {
                     this_.$store.commit('guestpersonlist', response.data.guestpersonlist);
+                    this_.pageNumber = 1;
                 });
             this.query = false;
         },

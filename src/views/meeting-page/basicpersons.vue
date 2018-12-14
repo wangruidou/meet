@@ -577,12 +577,13 @@ export default {
             personColumns: [
                 {title: '序号', type: 'index', width: 70, align: 'center'}, // 单选
                 {title: '姓名', key: 'name', width: 150, align: 'center'},
-                {title: '单位', key: 'unit', width: 300, align: 'center'},
-                {title: '职务', key: 'position', width: 250, align: 'center'},
+                {title: '单位', key: 'unit', align: 'center'},
+                {title: '职务', key: 'position', width: 300, align: 'center'},
                 {title: '手机号', key: 'phone', width: 150, align: 'center'},
                 {title: '操作',
                     key: 'action',
                     align: 'center',
+                    width: 250,
                     render: (h, params) => {
                         return h('div', [
                             h('Button', {
@@ -1377,6 +1378,7 @@ export default {
                 '&custom3_query=' + this_.custom3_query + '' + '&custom4_query=' + this_.custom4_query + '')
                 .then(function (response) {
                     this_.$store.commit('basicpersonlist', response.data.basicpersonlist);
+                    this_.pageNumber = 1;
                 });
             this.query = false;
         },
@@ -1430,6 +1432,9 @@ export default {
                         });
                         this_.$Message.info('删除成功');
                         this_.$store.commit('basicpersonlist', this_.personValidate);
+                        if(this_.person_data.length == 0) {
+                            this_.pageNumber = this_.pageNumber - 1;
+                        }
                     } else {
                         this_.$Message.info('删除失败');
                     }

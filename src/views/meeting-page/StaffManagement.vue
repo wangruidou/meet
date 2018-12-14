@@ -568,7 +568,7 @@ export default {
     data () {
         return {
             value: '',
-            pageSize: 10,
+            pageSize: 8,
             pageNumber: 1,
             person_index: -1,
             searchPersonList: [],
@@ -583,10 +583,11 @@ export default {
                 {title: 'ppt', key: 'ppt', width: 90, align: 'center'},
                 {title: '签到状态', key: 'signname', width: 100, align: 'center'},
                 {title: '报名时间', key: 'inserttime', width: 150, align: 'center'},
-                {title: '所属参会组', key: 'groupname', width: 120, align: 'center'},
+                {title: '所属参会组', key: 'groupname', align: 'center'},
                 { title: '操作',
                     key: 'action',
                     align: 'center',
+                    width: 130,
                     render: (h, params) => {
                         return h('div', [
                             h('Button', {
@@ -1249,6 +1250,7 @@ export default {
                 '&custom3_query=' + this_.custom3_query + '' + '&custom4_query=' + this_.custom4_query + '')
                 .then(function (response) {
                     this_.$store.commit('meetingpersonlist', response.data.meetingpersonlist);
+                    this_.pageNumber = 1;
                 });
             this.query = false;
         },

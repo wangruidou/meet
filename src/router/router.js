@@ -299,16 +299,16 @@ export const appRouter = [
             { path: 'labelType', title: '标签种类管理', name: 'labelType_index', component: () => import('@/views/meeting-page/LabelType.vue') }
         ]
     },
-    // {
-    //     path: '/meeting-page',
-    //     icon: 'person',
-    //     title: '人员数据交互',
-    //     name: 'personnelInteraction',
-    //     component: Main,
-    //     children: [
-    //         { path: 'personnelInteraction', title: '人员数据交互', name: 'personnelInteraction_index', component: () => import('@/views/meeting-page/PersonnelInteraction.vue') }
-    //     ]
-    // }
+    {
+        path: '/meeting-page',
+        icon: 'person',
+        title: '人员数据交互',
+        name: 'personnelInteraction',
+        component: Main,
+        children: [
+            { path: 'personnelInteraction', title: '人员数据交互', name: 'personnelInteraction_index', component: () => import('@/views/meeting-page/PersonnelInteraction.vue') }
+        ]
+    }
 ];
 
 // 所有上面定义的路由都要写在下面的routers里
