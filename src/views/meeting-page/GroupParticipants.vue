@@ -50,10 +50,11 @@ export default {
         return {
             columns1: [
                 {title: '序号', type: 'index', width: 100, align: 'center'}, // 单选
-                {title: '分组名称', key: 'group_name', width: 600, align: 'center'},
+                {title: '分组名称', key: 'group_name', align: 'center'},
                 { title: '操作',
                     key: 'action',
                     align: 'center',
+                    width: 400,
                     render: (h, params) => {
                         return h('div', [
                             h('Button', {

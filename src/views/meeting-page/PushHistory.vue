@@ -118,7 +118,6 @@ export default {
         var _this = this;
         this.$ajax.post('meetingcolumns/list')
             .then(function (response) {
-                console.log(response.data.logslist);
                 _this.$store.commit('logslist', response.data.logslist);
             });
     }

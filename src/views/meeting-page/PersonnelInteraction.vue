@@ -42,7 +42,7 @@ export default {
                 {type: 'selection', width: 35, align: 'center'},
                 {title:'昵称*', key:'nickname', width: 100, align: 'center'},
                 {title:'姓名', key:'name', width: 100, align: 'center'},
-                {title:'单位', key:'unit', width: 130, align: 'center'},
+                {title:'单位', key:'unit', width: 120, align: 'center'},
                 {title:'职务', key:'position', width: 100, align: 'center'},
                 {title:'手机号', key:'phone', align: 'center'}
             ],
